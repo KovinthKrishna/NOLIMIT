@@ -13,8 +13,8 @@ const About = () => {
             </Text>
             <HStack paddingY="30px">
                 <Input placeholder="Your email"></Input>
-                <Button colorScheme="facebook" variant="solid">
-                    Signup
+                <Button colorScheme="teal" variant="solid">
+                    Subscribe
                 </Button>
             </HStack>
         </VStack>

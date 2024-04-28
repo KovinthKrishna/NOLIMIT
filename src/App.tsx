@@ -1,11 +1,8 @@
 import { Grid, GridItem, Text } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
-import HomeCard from "./components/HomeCard";
-import Offers from "./components/Offers";
-import Categories from "./components/Categories";
-import Brands from "./components/Brands";
 import AboveFooter from "./components/AboveFooter";
 import Footer from "./components/Footer";
+import Router from "./Router";
 
 const App = () => {
     return (
@@ -14,16 +11,7 @@ const App = () => {
                 <NavBar />
             </GridItem>
             <GridItem>
-                <HomeCard />
-            </GridItem>
-            <GridItem padding="4%">
-                <Offers />
-            </GridItem>
-            <GridItem padding="4%" backgroundColor="#F3F4F6">
-                <Categories />
-            </GridItem>
-            <GridItem paddingY="6%">
-                <Brands />
+                <Router />
             </GridItem>
             <GridItem>
                 <AboveFooter />

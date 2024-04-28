@@ -1,11 +1,14 @@
 import { Button, HStack, IconButton, Image, Show } from "@chakra-ui/react";
 import logo from "../assets/logo.svg";
 import { MdOutlineShoppingBag } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
     return (
         <HStack justifyContent="space-between" paddingX="50px" height="75px">
-            <Image src={logo} boxSize="120px" />
+            <Link to="/">
+                <Image src={logo} boxSize="120px" />
+            </Link>
             <Show above="md">
                 <HStack>
                     <Button variant="ghost" fontSize="12px" fontWeight="bolder">
