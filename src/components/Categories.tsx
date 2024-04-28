@@ -1,0 +1,74 @@
+import women from "../assets/women.webp";
+import men from "../assets/men.webp";
+import kids from "../assets/kids.webp";
+import {
+    Card,
+    Heading,
+    Image,
+    SimpleGrid,
+    Stack,
+    Text,
+} from "@chakra-ui/react";
+
+const Categories = () => {
+    return (
+        <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacingY="20px">
+            <Card
+                maxWidth="sm"
+                overflow="hidden"
+                borderRadius="10px"
+                style={{ cursor: "pointer" }}
+            >
+                <Image src={women}></Image>
+                <Stack paddingX="20px" paddingY="5px" marginY="10px">
+                    <Heading fontSize="14px">WOMEN</Heading>
+                    <Text
+                        fontSize="14px"
+                        textDecoration="underline"
+                        fontWeight="600"
+                    >
+                        Shop Now
+                    </Text>
+                </Stack>
+            </Card>
+            <Card
+                maxWidth="sm"
+                overflow="hidden"
+                borderRadius="10px"
+                style={{ cursor: "pointer" }}
+            >
+                <Image src={men}></Image>
+                <Stack paddingX="20px" paddingY="5px" marginY="10px">
+                    <Heading fontSize="14px">MEN</Heading>
+                    <Text
+                        fontSize="14px"
+                        textDecoration="underline"
+                        fontWeight="600"
+                    >
+                        Shop Now
+                    </Text>
+                </Stack>
+            </Card>
+            <Card
+                maxWidth="sm"
+                overflow="hidden"
+                borderRadius="10px"
+                style={{ cursor: "pointer" }}
+            >
+                <Image src={kids}></Image>
+                <Stack paddingX="20px" paddingY="5px" marginY="10px">
+                    <Heading fontSize="14px">KIDS</Heading>
+                    <Text
+                        fontSize="14px"
+                        textDecoration="underline"
+                        fontWeight="600"
+                    >
+                        Shop Now
+                    </Text>
+                </Stack>
+            </Card>
+        </SimpleGrid>
+    );
+};
+
+export default Categories;
