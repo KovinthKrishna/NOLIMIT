@@ -12,9 +12,13 @@ import {
 
 const Categories = () => {
     return (
-        <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacingY="20px">
+        <SimpleGrid
+            columns={{ base: 1, lg: 3 }}
+            spacing="20px"
+            justifyItems="center"
+        >
             <Card
-                maxWidth="sm"
+                maxWidth="md"
                 overflow="hidden"
                 borderRadius="10px"
                 style={{ cursor: "pointer" }}
@@ -32,7 +36,7 @@ const Categories = () => {
                 </Stack>
             </Card>
             <Card
-                maxWidth="sm"
+                maxWidth="md"
                 overflow="hidden"
                 borderRadius="10px"
                 style={{ cursor: "pointer" }}
@@ -50,7 +54,7 @@ const Categories = () => {
                 </Stack>
             </Card>
             <Card
-                maxWidth="sm"
+                maxWidth="md"
                 overflow="hidden"
                 borderRadius="10px"
                 style={{ cursor: "pointer" }}
