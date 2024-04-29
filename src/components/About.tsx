@@ -1,7 +1,21 @@
 import { Button, HStack, Image, Input, Text, VStack } from "@chakra-ui/react";
 import logo from "../assets/logo.svg";
+import { useState } from "react";
+import axios from "axios";
 
 const About = () => {
+    const [email, setEmail] = useState("");
+
+    const Submit = () => {
+        axios
+            .post("http://localhost:3000/api/users", { email })
+            .then(() => {
+                console.log("Subscription successful");
+                setEmail("");
+            })
+            .catch((err) => console.log(err));
+    };
+
     return (
         <VStack alignItems="start">
             <Image src={logo} boxSize="120px" maxHeight="75px"></Image>
@@ -12,8 +26,17 @@ const About = () => {
                 customer-centricity to take the art of retailing to a new level.
             </Text>
             <HStack paddingY="30px">
-                <Input placeholder="Your email"></Input>
-                <Button colorScheme="teal" variant="solid">
+                <Input
+                    placeholder="Your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                ></Input>
+                <Button
+                    colorScheme="teal"
+                    variant="solid"
+                    isDisabled={!email.includes("@")}
+                    onClick={Submit}
+                >
                     Subscribe
                 </Button>
             </HStack>
