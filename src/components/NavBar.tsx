@@ -30,14 +30,16 @@ const NavBar = () => {
                             GIFT CARDS
                         </Button>
                     </Link>
-                    <Button
-                        variant="solid"
-                        fontSize="12px"
-                        fontWeight="bolder"
-                        colorScheme="red"
-                    >
-                        SALE
-                    </Button>
+                    <Link to="/collections/Offers">
+                        <Button
+                            variant="solid"
+                            fontSize="12px"
+                            fontWeight="bolder"
+                            colorScheme="red"
+                        >
+                            SALE
+                        </Button>
+                    </Link>
                 </HStack>
                 <HStack>
                     <IconButton
