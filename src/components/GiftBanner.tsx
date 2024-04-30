@@ -1,5 +1,5 @@
 import { Heading, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import gv from "../assets/gv.png";
+import cards from "../assets/cards.webp";
 
 const GiftBanner = () => {
     return (
@@ -28,7 +28,7 @@ const GiftBanner = () => {
                     4 products for gift-vouchers in 1 pages
                 </Text>
             </VStack>
-            <Image src={gv} width="100%" order={{ base: 1, lg: 2 }}></Image>
+            <Image src={cards} width="100%" order={{ base: 1, lg: 2 }}></Image>
         </SimpleGrid>
     );
 };
