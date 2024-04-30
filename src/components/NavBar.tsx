@@ -20,14 +20,16 @@ const NavBar = () => {
                     <Button variant="ghost" fontSize="12px" fontWeight="bolder">
                         KIDS
                     </Button>
-                    <Button
-                        variant="ghost"
-                        fontSize="12px"
-                        fontWeight="bolder"
-                        colorScheme="red"
-                    >
-                        GIFT CARDS
-                    </Button>
+                    <Link to="/gift-vouchers">
+                        <Button
+                            variant="ghost"
+                            fontSize="12px"
+                            fontWeight="bolder"
+                            colorScheme="red"
+                        >
+                            GIFT CARDS
+                        </Button>
+                    </Link>
                     <Button
                         variant="solid"
                         fontSize="12px"

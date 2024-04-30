@@ -9,6 +9,7 @@ import {
     Stack,
     Text,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const Offers = () => {
     return (
@@ -55,25 +56,27 @@ const Offers = () => {
                     </Text>
                 </Stack>
             </Card>
-            <Card
-                maxWidth="md"
-                overflow="hidden"
-                borderRadius="10px"
-                backgroundColor="#F9FAFB"
-                style={{ cursor: "pointer" }}
-            >
-                <Image src={cards}></Image>
-                <Stack paddingX="20px" paddingY="5px" marginY="10px">
-                    <Heading fontSize="14px">GIFT CARDS</Heading>
-                    <Text
-                        fontSize="14px"
-                        textDecoration="underline"
-                        fontWeight="600"
-                    >
-                        Shop Now
-                    </Text>
-                </Stack>
-            </Card>
+            <Link to="/gift-vouchers">
+                <Card
+                    maxWidth="md"
+                    overflow="hidden"
+                    borderRadius="10px"
+                    backgroundColor="#F9FAFB"
+                    style={{ cursor: "pointer" }}
+                >
+                    <Image src={cards}></Image>
+                    <Stack paddingX="20px" paddingY="5px" marginY="10px">
+                        <Heading fontSize="14px">GIFT CARDS</Heading>
+                        <Text
+                            fontSize="14px"
+                            textDecoration="underline"
+                            fontWeight="600"
+                        >
+                            Shop Now
+                        </Text>
+                    </Stack>
+                </Card>
+            </Link>
         </SimpleGrid>
     );
 };
