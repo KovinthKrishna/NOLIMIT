@@ -3,6 +3,9 @@ import Home from "./pages/Home";
 import Gifts from "./pages/Gifts";
 import Collections from "./pages/Collections";
 import AboutUs from "./pages/AboutUs";
+import Women from "./pages/Women";
+import Men from "./pages/Men";
+import Kids from "./pages/Kids";
 
 function Router() {
     return useRoutes([
@@ -29,6 +32,23 @@ function Router() {
                 {
                     path: "about-us",
                     element: <AboutUs />,
+                },
+            ],
+        },
+        {
+            path: "categories",
+            children: [
+                {
+                    path: "Women",
+                    element: <Women />,
+                },
+                {
+                    path: "Men",
+                    element: <Men />,
+                },
+                {
+                    path: "Kids",
+                    element: <Kids />,
                 },
             ],
         },

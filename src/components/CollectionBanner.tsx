@@ -21,8 +21,7 @@ const CollectionBanner = () => {
                 </Heading>
                 <Text fontSize="12px" fontWeight="bolder">
                     Check the Offers in our store. Shop with us for a premium
-                    clothing, accessories and fashion experience. Found 65
-                    products for Offers in 3 pages
+                    clothing, accessories and fashion experience.
                 </Text>
             </VStack>
             <Image src={sale} width="100%" order={{ base: 1, lg: 2 }}></Image>

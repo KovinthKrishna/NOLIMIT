@@ -1,7 +1,7 @@
-import { Heading, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import cards from "../assets/cards.webp";
+import { Heading, SimpleGrid, VStack, Text, Image } from "@chakra-ui/react";
+import women from "../assets/women.webp";
 
-const GiftBanner = () => {
+const WomenBanner = () => {
     return (
         <SimpleGrid
             columns={{ base: 1, lg: 2 }}
@@ -14,22 +14,22 @@ const GiftBanner = () => {
                 order={{ base: 2, lg: 1 }}
             >
                 <Text fontSize="12px" color="#374151" fontWeight="bolder">
-                    Home | Gift Vouchers
+                    Home | Category
                 </Text>
                 <Heading fontSize={{ base: 30, lg: 60 }} fontWeight="bolder">
-                    Gift Vouchers
+                    Women
                 </Heading>
                 <Text fontSize="14px" fontWeight="bolder">
-                    Nolimit Gift Vouchers for you
+                    NOLIMIT Women collection for you
                 </Text>
                 <Text fontSize="12px" fontWeight="bolder" paddingY="40px">
-                    Check the Gift Vouchers in our store. Shop with us for a
+                    Check the Women collection in our store. Shop with us for a
                     premium clothing, accessories and fashion experience.
                 </Text>
             </VStack>
-            <Image src={cards} width="100%" order={{ base: 1, lg: 2 }}></Image>
+            <Image src={women} width="100%" order={{ base: 1, lg: 2 }}></Image>
         </SimpleGrid>
     );
 };
 
-export default GiftBanner;
+export default WomenBanner;
