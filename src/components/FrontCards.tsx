@@ -1,33 +1,62 @@
 import {
-    Button,
     Card,
-    HStack,
-    Image,
     SimpleGrid,
+    Image,
     Stack,
     Text,
+    HStack,
+    IconButton,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import collectionsDetails from "./collectionsDetails";
+import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
+import { useEffect, useState } from "react";
 
-const CollectionCards = () => {
-    const [page, setPage] = useState(1);
-    const pages = Array.from(
-        { length: Math.ceil(collectionsDetails.length / 12) },
-        (_, index) => index + 1
-    );
+interface Props {
+    startIndex: number;
+    endIndex: number;
+}
+
+const FrontCards = ({ startIndex, endIndex }: Props) => {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
+    const products = collectionsDetails.slice(startIndex, endIndex);
+    const [start, setStart] = useState(0);
+    const length = windowWidth < 768 ? 1 : windowWidth < 992 ? 3 : 4;
+    if (start > products.length - length) {
+        setStart(products.length - length);
+    }
 
     return (
-        <>
+        <HStack paddingTop={14} justifyContent="center" spacing={0}>
+            <IconButton
+                colorScheme="gray"
+                aria-label="Previous"
+                icon={<CgChevronLeft />}
+                size="lg"
+                onClick={() => {
+                    setStart(start - 1);
+                }}
+                isDisabled={start == 0}
+            />
             <SimpleGrid
-                columns={{ base: 2, lg: 4 }}
+                columns={{ base: 1, md: 3, lg: 4 }}
                 justifyItems="center"
                 spacing={6}
-                paddingY={10}
-                paddingX={{ base: 2, lg: 14 }}
             >
-                {collectionsDetails
-                    .slice(page * 12 - 12, page * 12)
+                {products
+                    .slice(start, start + length)
                     .map((collectionDetails) => {
                         return (
                             <Card
@@ -63,24 +92,18 @@ const CollectionCards = () => {
                         );
                     })}
             </SimpleGrid>
-            <HStack justifyContent="center" paddingBottom={6} spacing={3}>
-                {pages.map((label, index) => {
-                    return (
-                        <Button
-                            key={index}
-                            colorScheme="teal"
-                            variant={page == label ? "solid" : "ghost"}
-                            onClick={() => {
-                                setPage(label);
-                            }}
-                        >
-                            {label}
-                        </Button>
-                    );
-                })}
-            </HStack>
-        </>
+            <IconButton
+                colorScheme="gray"
+                aria-label="Next"
+                icon={<CgChevronRight />}
+                size="lg"
+                onClick={() => {
+                    setStart(start + 1);
+                }}
+                isDisabled={products.length == start + length}
+            />
+        </HStack>
     );
 };
 
-export default CollectionCards;
+export default FrontCards;
