@@ -36,7 +36,7 @@ import { useState } from "react";
 const CollectionCards = () => {
     const [page, setPage] = useState(1);
 
-    const collectionsDetails_1 = [
+    const collectionsDetails = [
         {
             id: 1,
             image: item_01,
@@ -121,8 +121,6 @@ const CollectionCards = () => {
             name: "POPSODA Women's Casual Pant",
             price: "990.00",
         },
-    ];
-    const collectionsDetails_2 = [
         {
             id: 13,
             image: item_13,
@@ -218,45 +216,42 @@ const CollectionCards = () => {
                 paddingY={10}
                 paddingX={{ base: 2, lg: 14 }}
             >
-                {(page == 1
-                    ? collectionsDetails_1
-                    : page == 2
-                    ? collectionsDetails_2
-                    : []
-                ).map((collectionDetails) => {
-                    return (
-                        <Card
-                            overflow="hidden"
-                            borderRadius="10px"
-                            key={collectionDetails.id}
-                        >
-                            <Image
-                                src={collectionDetails.image}
-                                style={{ cursor: "pointer" }}
-                            ></Image>
-                            <hr />
-                            <Stack padding={3} spacing={0}>
-                                <Text
-                                    color="#9CA3AF"
-                                    fontSize="12px"
-                                    fontWeight="900"
-                                >
-                                    {collectionDetails.category}
-                                </Text>
-                                <Text fontSize="12px" fontWeight="900">
-                                    {collectionDetails.name}
-                                </Text>
-                                <Text
-                                    fontSize="12px"
-                                    paddingY={2}
-                                    fontWeight="900"
-                                >
-                                    LKR {collectionDetails.price}
-                                </Text>
-                            </Stack>
-                        </Card>
-                    );
-                })}
+                {collectionsDetails
+                    .slice(page * 12 - 12, page * 12)
+                    .map((collectionDetails) => {
+                        return (
+                            <Card
+                                overflow="hidden"
+                                borderRadius="10px"
+                                key={collectionDetails.id}
+                            >
+                                <Image
+                                    src={collectionDetails.image}
+                                    style={{ cursor: "pointer" }}
+                                ></Image>
+                                <hr />
+                                <Stack padding={3} spacing={0}>
+                                    <Text
+                                        color="#9CA3AF"
+                                        fontSize="12px"
+                                        fontWeight="900"
+                                    >
+                                        {collectionDetails.category}
+                                    </Text>
+                                    <Text fontSize="12px" fontWeight="900">
+                                        {collectionDetails.name}
+                                    </Text>
+                                    <Text
+                                        fontSize="12px"
+                                        paddingY={2}
+                                        fontWeight="900"
+                                    >
+                                        LKR {collectionDetails.price}
+                                    </Text>
+                                </Stack>
+                            </Card>
+                        );
+                    })}
             </SimpleGrid>
             <HStack justifyContent="center" paddingBottom={6} spacing={3}>
                 <Button
