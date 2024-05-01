@@ -16,15 +16,33 @@ const NavBar = () => {
             </Link>
             <Show above="md">
                 <HStack>
-                    <Button variant="ghost" fontSize="12px" fontWeight="bolder">
-                        WOMEN
-                    </Button>
-                    <Button variant="ghost" fontSize="12px" fontWeight="bolder">
-                        MEN
-                    </Button>
-                    <Button variant="ghost" fontSize="12px" fontWeight="bolder">
-                        KIDS
-                    </Button>
+                    <Link to="categories/Women">
+                        <Button
+                            variant="ghost"
+                            fontSize="12px"
+                            fontWeight="bolder"
+                        >
+                            WOMEN
+                        </Button>
+                    </Link>
+                    <Link to="categories/Men">
+                        <Button
+                            variant="ghost"
+                            fontSize="12px"
+                            fontWeight="bolder"
+                        >
+                            MEN
+                        </Button>
+                    </Link>
+                    <Link to="categories/Kids">
+                        <Button
+                            variant="ghost"
+                            fontSize="12px"
+                            fontWeight="bolder"
+                        >
+                            KIDS
+                        </Button>
+                    </Link>
                     <Link to="/gift-vouchers">
                         <Button
                             variant="ghost"
