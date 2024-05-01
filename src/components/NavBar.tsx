@@ -5,7 +5,12 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
     return (
-        <HStack justifyContent="space-between" paddingX="50px" height="75px">
+        <HStack
+            justifyContent="space-between"
+            paddingX="50px"
+            height="75px"
+            shadow="0px 0px 2px"
+        >
             <Link to="/">
                 <Image src={logo} boxSize="120px" />
             </Link>

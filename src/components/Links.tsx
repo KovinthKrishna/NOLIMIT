@@ -1,4 +1,5 @@
 import { Heading, VStack, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const Links = () => {
     return (
@@ -6,14 +7,16 @@ const Links = () => {
             <Heading fontSize="12px" fontWeight="900" paddingY="15px">
                 QUICK LINKS
             </Heading>
-            <Text
-                fontSize="12px"
-                fontWeight="bold"
-                paddingY="2px"
-                style={{ cursor: "pointer" }}
-            >
-                About Us
-            </Text>
+            <Link to="customer-care/about-us">
+                <Text
+                    fontSize="12px"
+                    fontWeight="bold"
+                    paddingY="2px"
+                    style={{ cursor: "pointer" }}
+                >
+                    About Us
+                </Text>
+            </Link>
             <Text
                 fontSize="12px"
                 fontWeight="bold"
