@@ -6,6 +6,7 @@ import AboutUs from "./pages/AboutUs";
 import Women from "./pages/Women";
 import Men from "./pages/Men";
 import Kids from "./pages/Kids";
+import Cart from "./pages/Cart";
 
 function Router() {
     return useRoutes([
@@ -16,6 +17,10 @@ function Router() {
         {
             path: "gift-vouchers",
             element: <Gifts />,
+        },
+        {
+            path: "cart",
+            element: <Cart />,
         },
         {
             path: "collections",

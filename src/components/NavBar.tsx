@@ -64,13 +64,17 @@ const NavBar = () => {
                         </Button>
                     </Link>
                 </HStack>
-                <HStack>
+            </Show>
+            <HStack>
+                <Link to="cart">
                     <IconButton
                         variant="ghost"
                         isRound={true}
                         aria-label="Cart"
                         icon={<MdOutlineShoppingBag />}
                     ></IconButton>
+                </Link>
+                <Show above="md">
                     <Button
                         variant="outline"
                         fontSize="12px"
@@ -79,8 +83,8 @@ const NavBar = () => {
                     >
                         Track My Order
                     </Button>
-                </HStack>
-            </Show>
+                </Show>
+            </HStack>
         </HStack>
     );
 };

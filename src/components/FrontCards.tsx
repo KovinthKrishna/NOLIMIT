@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import collectionsDetails from "./collectionsDetails";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
+import { FaCartPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -69,25 +70,37 @@ const FrontCards = ({ startIndex, endIndex }: Props) => {
                                     style={{ cursor: "pointer" }}
                                 ></Image>
                                 <hr />
-                                <Stack padding={3} spacing={0}>
-                                    <Text
-                                        color="#9CA3AF"
-                                        fontSize="12px"
-                                        fontWeight="900"
-                                    >
-                                        {collectionDetails.category}
-                                    </Text>
-                                    <Text fontSize="12px" fontWeight="900">
-                                        {collectionDetails.name}
-                                    </Text>
-                                    <Text
-                                        fontSize="12px"
-                                        paddingY={2}
-                                        fontWeight="900"
-                                    >
-                                        LKR {collectionDetails.price}
-                                    </Text>
-                                </Stack>
+                                <HStack
+                                    justifyContent="space-between"
+                                    padding={1}
+                                >
+                                    <Stack padding={3} spacing={0}>
+                                        <Text
+                                            color="#9CA3AF"
+                                            fontSize="12px"
+                                            fontWeight="900"
+                                        >
+                                            {collectionDetails.category}
+                                        </Text>
+                                        <Text fontSize="12px" fontWeight="900">
+                                            {collectionDetails.name}
+                                        </Text>
+                                        <Text
+                                            fontSize="12px"
+                                            paddingY={2}
+                                            fontWeight="900"
+                                        >
+                                            LKR {collectionDetails.price}
+                                        </Text>
+                                    </Stack>
+                                    <IconButton
+                                        colorScheme="gray"
+                                        variant="ghost"
+                                        aria-label="Add"
+                                        icon={<FaCartPlus />}
+                                        size="lg"
+                                    ></IconButton>
+                                </HStack>
                             </Card>
                         );
                     })}
