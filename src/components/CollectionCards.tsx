@@ -8,11 +8,58 @@ import {
     Stack,
     Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import collectionsDetails from "./collectionsDetails";
 import { FaCartPlus } from "react-icons/fa";
+import axios from "axios";
 
 const CollectionCards = () => {
+    const [items, setItems] = useState([]);
+    const [refresh, setRefresh] = useState(false);
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000")
+            .then((result) => setItems(result.data))
+            .catch((err) => console.log(err));
+    }, [refresh]);
+
+    const Add = (id: number) => {
+        setRefresh(false);
+        const duplicate = items.find((item: { id: number; count: number }) => {
+            if (item.id === id) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+        if (duplicate === undefined) {
+            AddToCart(id);
+        } else {
+            Update(duplicate);
+        }
+    };
+
+    const AddToCart = (id: number) => {
+        axios
+            .post("http://localhost:3000/add/items", { id: id, count: 1 })
+            .then(() => {
+                setRefresh(true);
+            })
+            .catch((err) => console.log(err));
+    };
+
+    const Update = (duplicate: { _id: string; id: number; count: number }) => {
+        axios
+            .put("http://localhost:3000/update/items/" + duplicate._id, {
+                count: duplicate.count + 1,
+            })
+            .then(() => {
+                setRefresh(true);
+            })
+            .catch((err) => console.log(err));
+    };
+
     const [page, setPage] = useState(1);
     const pages = Array.from(
         { length: Math.ceil(collectionsDetails.length / 12) },
@@ -71,6 +118,9 @@ const CollectionCards = () => {
                                         aria-label="Add"
                                         icon={<FaCartPlus />}
                                         size="lg"
+                                        onClick={() => {
+                                            Add(collectionDetails.id);
+                                        }}
                                     ></IconButton>
                                 </HStack>
                             </Card>

@@ -11,6 +11,7 @@ import collectionsDetails from "./collectionsDetails";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import { FaCartPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface Props {
     startIndex: number;
@@ -18,6 +19,52 @@ interface Props {
 }
 
 const FrontCards = ({ startIndex, endIndex }: Props) => {
+    const [items, setItems] = useState([]);
+    const [refresh, setRefresh] = useState(false);
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000")
+            .then((result) => setItems(result.data))
+            .catch((err) => console.log(err));
+    }, [refresh]);
+
+    const Add = (id: number) => {
+        setRefresh(false);
+        const duplicate = items.find((item: { id: number; count: number }) => {
+            if (item.id === id) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+        if (duplicate === undefined) {
+            AddToCart(id);
+        } else {
+            Update(duplicate);
+        }
+    };
+
+    const AddToCart = (id: number) => {
+        axios
+            .post("http://localhost:3000/add/items", { id: id, count: 1 })
+            .then(() => {
+                setRefresh(true);
+            })
+            .catch((err) => console.log(err));
+    };
+
+    const Update = (duplicate: { _id: string; id: number; count: number }) => {
+        axios
+            .put("http://localhost:3000/update/items/" + duplicate._id, {
+                count: duplicate.count + 1,
+            })
+            .then(() => {
+                setRefresh(true);
+            })
+            .catch((err) => console.log(err));
+    };
+
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const handleResize = () => {
@@ -99,6 +146,9 @@ const FrontCards = ({ startIndex, endIndex }: Props) => {
                                         aria-label="Add"
                                         icon={<FaCartPlus />}
                                         size="lg"
+                                        onClick={() => {
+                                            Add(collectionDetails.id);
+                                        }}
                                     ></IconButton>
                                 </HStack>
                             </Card>

@@ -9,8 +9,20 @@ import {
 } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import collectionsDetails from "../components/collectionsDetails";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Cart = () => {
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000")
+            .then((result) => setItems(result.data))
+            .catch((err) => console.log(err));
+    }, []);
+    console.log(items);
+
     return (
         <>
             <Text
