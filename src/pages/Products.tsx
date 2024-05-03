@@ -36,7 +36,7 @@ export const Products = () => {
             .catch((err) => console.log(err));
     }, [refresh]);
 
-    const Add = (id: number) => {
+    const Add = (id: number, cart: boolean) => {
         setRefresh(false);
         const duplicate = items.find((item: { id: number; count: number }) => {
             if (item.id === id) {
@@ -46,13 +46,13 @@ export const Products = () => {
             }
         });
         if (duplicate === undefined) {
-            AddToCart(id);
+            AddToCart(id, cart);
         } else {
-            Update(duplicate);
+            Update(duplicate, cart);
         }
     };
 
-    const AddToCart = (id: number) => {
+    const AddToCart = (id: number, cart: boolean) => {
         axios
             .post("http://localhost:3000/add/items", {
                 id: id,
@@ -60,17 +60,26 @@ export const Products = () => {
             })
             .then(() => {
                 setRefresh(true);
+                if (cart) {
+                    navigate("/cart");
+                }
             })
             .catch((err) => console.log(err));
     };
 
-    const Update = (duplicate: { _id: string; id: number; count: number }) => {
+    const Update = (
+        duplicate: { _id: string; id: number; count: number },
+        cart: boolean
+    ) => {
         axios
             .put("http://localhost:3000/update/items/" + duplicate._id, {
                 count: duplicate.count + buyCount,
             })
             .then(() => {
                 setRefresh(true);
+                if (cart) {
+                    navigate("/cart");
+                }
             })
             .catch((err) => console.log(err));
     };
@@ -129,7 +138,7 @@ export const Products = () => {
                                 variant="solid"
                                 width="100%"
                                 onClick={() => {
-                                    Add(product?.id || 0);
+                                    Add(product?.id || 0, false);
                                 }}
                             >
                                 Add to Cart
@@ -139,7 +148,7 @@ export const Products = () => {
                                 variant="outline"
                                 width="100%"
                                 onClick={() => {
-                                    Add(product?.id || 0);
+                                    Add(product?.id || 0, true);
                                     navigate("/cart");
                                 }}
                             >
