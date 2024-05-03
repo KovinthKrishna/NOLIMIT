@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useParams, useNavigate } from "react-router-dom";
 import collectionsDetails from "../components/collectionsDetails";
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { AddIcon, CheckIcon, MinusIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -26,6 +26,7 @@ export const Products = () => {
         }
     });
 
+    const [button, setButton] = useState(false);
     const [items, setItems] = useState([]);
     const [refresh, setRefresh] = useState(false);
 
@@ -137,11 +138,16 @@ export const Products = () => {
                                 colorScheme="teal"
                                 variant="solid"
                                 width="100%"
+                                isDisabled={button}
                                 onClick={() => {
                                     Add(product?.id || 0, false);
+                                    setButton(true);
+                                    setTimeout(() => {
+                                        setButton(false);
+                                    }, 2000);
                                 }}
                             >
-                                Add to Cart
+                                {button ? <CheckIcon /> : "Add to Cart"}
                             </Button>
                             <Button
                                 colorScheme="teal"

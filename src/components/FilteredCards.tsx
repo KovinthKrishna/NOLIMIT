@@ -13,6 +13,7 @@ import collectionsDetails from "./collectionsDetails";
 import { FaCartPlus } from "react-icons/fa";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { CheckIcon } from "@chakra-ui/icons";
 
 interface Props {
     category: string;
@@ -21,6 +22,7 @@ interface Props {
 const FilteredCards = ({ category }: Props) => {
     const [items, setItems] = useState([]);
     const [refresh, setRefresh] = useState(false);
+    const [button, setButton] = useState(false);
 
     useEffect(() => {
         axios
@@ -126,10 +128,21 @@ const FilteredCards = ({ category }: Props) => {
                                         colorScheme="gray"
                                         variant="ghost"
                                         aria-label="Add"
-                                        icon={<FaCartPlus />}
+                                        icon={
+                                            button ? (
+                                                <CheckIcon />
+                                            ) : (
+                                                <FaCartPlus />
+                                            )
+                                        }
                                         size="lg"
+                                        isDisabled={button}
                                         onClick={() => {
                                             Add(collectionDetails.id);
+                                            setButton(true);
+                                            setTimeout(() => {
+                                                setButton(false);
+                                            }, 2000);
                                         }}
                                     ></IconButton>
                                 </HStack>
