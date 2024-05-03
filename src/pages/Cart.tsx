@@ -14,10 +14,12 @@ import collectionsDetails from "../components/collectionsDetails";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { MinusIcon, AddIcon } from "@chakra-ui/icons";
+import CartBalance from "../components/CartBalance";
 
 const Cart = () => {
     const [items, setItems] = useState([]);
     const [refresh, setRefresh] = useState(false);
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         axios
@@ -25,6 +27,22 @@ const Cart = () => {
             .then((result) => setItems(result.data))
             .catch((err) => console.log(err));
     }, [refresh]);
+
+    useEffect(() => {
+        let totalPrice = 0;
+        items.forEach((item: { id: number; count: number }) => {
+            const collectionDetails = collectionsDetails.find(
+                (collection) => collection.id === item.id
+            );
+            totalPrice +=
+                item.count *
+                parseInt(
+                    (collectionDetails?.price ?? "").replace(/,/g, ""),
+                    10
+                );
+        });
+        setTotal(totalPrice);
+    }, [items]);
 
     const Add = (item: { _id: string; count: number }) => {
         axios
@@ -151,6 +169,8 @@ const Cart = () => {
                     }
                 )}
             </SimpleGrid>
+            <hr />
+            <CartBalance total={total} />
         </>
     );
 };
