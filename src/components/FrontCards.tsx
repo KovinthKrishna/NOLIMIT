@@ -20,10 +20,14 @@ interface Props {
     endIndex: number;
 }
 
+interface DisabledButtons {
+    [key: number]: boolean;
+}
+
 const FrontCards = ({ startIndex, endIndex }: Props) => {
     const [items, setItems] = useState([]);
     const [refresh, setRefresh] = useState(false);
-    const [button, setButton] = useState(false);
+    const [button, setButton] = useState<DisabledButtons>({});
 
     useEffect(() => {
         axios
@@ -150,19 +154,28 @@ const FrontCards = ({ startIndex, endIndex }: Props) => {
                                         variant="ghost"
                                         aria-label="Add"
                                         icon={
-                                            button ? (
+                                            button[collectionDetails.id] ? (
                                                 <CheckIcon />
                                             ) : (
                                                 <FaCartPlus />
                                             )
                                         }
                                         size="lg"
-                                        isDisabled={button}
+                                        isDisabled={
+                                            button[collectionDetails.id]
+                                        }
                                         onClick={() => {
                                             Add(collectionDetails.id);
-                                            setButton(true);
+                                            setButton((state) => ({
+                                                ...state,
+                                                [collectionDetails.id]: true,
+                                            }));
                                             setTimeout(() => {
-                                                setButton(false);
+                                                setButton((state) => ({
+                                                    ...state,
+                                                    [collectionDetails.id]:
+                                                        false,
+                                                }));
                                             }, 2000);
                                         }}
                                     ></IconButton>

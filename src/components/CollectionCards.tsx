@@ -15,10 +15,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { CheckIcon } from "@chakra-ui/icons";
 
+interface DisabledButtons {
+    [key: number]: boolean;
+}
+
 const CollectionCards = () => {
     const [items, setItems] = useState([]);
     const [refresh, setRefresh] = useState(false);
-    const [button, setButton] = useState(false);
+    const [button, setButton] = useState<DisabledButtons>({});
 
     useEffect(() => {
         axios
@@ -122,19 +126,28 @@ const CollectionCards = () => {
                                         variant="ghost"
                                         aria-label="Add"
                                         icon={
-                                            button ? (
+                                            button[collectionDetails.id] ? (
                                                 <CheckIcon />
                                             ) : (
                                                 <FaCartPlus />
                                             )
                                         }
                                         size="lg"
-                                        isDisabled={button}
+                                        isDisabled={
+                                            button[collectionDetails.id]
+                                        }
                                         onClick={() => {
                                             Add(collectionDetails.id);
-                                            setButton(true);
+                                            setButton((state) => ({
+                                                ...state,
+                                                [collectionDetails.id]: true,
+                                            }));
                                             setTimeout(() => {
-                                                setButton(false);
+                                                setButton((state) => ({
+                                                    ...state,
+                                                    [collectionDetails.id]:
+                                                        false,
+                                                }));
                                             }, 2000);
                                         }}
                                     ></IconButton>
