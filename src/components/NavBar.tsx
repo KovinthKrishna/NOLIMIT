@@ -16,7 +16,7 @@ const NavBar = () => {
             </Link>
             <Show above="md">
                 <HStack>
-                    <Link to="categories/Women">
+                    <Link to="/categories/Women">
                         <Button
                             variant="ghost"
                             fontSize="12px"
@@ -25,7 +25,7 @@ const NavBar = () => {
                             WOMEN
                         </Button>
                     </Link>
-                    <Link to="categories/Men">
+                    <Link to="/categories/Men">
                         <Button
                             variant="ghost"
                             fontSize="12px"
@@ -34,7 +34,7 @@ const NavBar = () => {
                             MEN
                         </Button>
                     </Link>
-                    <Link to="categories/Kids">
+                    <Link to="/categories/Kids">
                         <Button
                             variant="ghost"
                             fontSize="12px"
@@ -66,7 +66,7 @@ const NavBar = () => {
                 </HStack>
             </Show>
             <HStack>
-                <Link to="cart">
+                <Link to="/cart">
                     <IconButton
                         variant="ghost"
                         isRound={true}

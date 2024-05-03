@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { MinusIcon, AddIcon } from "@chakra-ui/icons";
 import CartBalance from "../components/CartBalance";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
     const [items, setItems] = useState([]);
@@ -104,26 +105,33 @@ const Cart = () => {
                             <Card
                                 shadow="0 0 4px"
                                 borderRadius="5px"
-                                key={collectionDetails?.id ?? ""}
+                                key={collectionDetails?.id}
                             >
                                 <HStack
                                     justifyContent="space-between"
                                     padding={{ base: 2, md: 4 }}
                                 >
                                     <HStack spacing={{ base: 2, lg: 4 }}>
-                                        <Image
-                                            src={collectionDetails?.image ?? ""}
-                                            height={{ base: "80px", md: 40 }}
-                                            borderRadius="5px"
-                                            border="2px solid black"
-                                        ></Image>
+                                        <Link
+                                            to={`/products/${collectionDetails?.id}`}
+                                        >
+                                            <Image
+                                                src={collectionDetails?.image}
+                                                height={{
+                                                    base: "80px",
+                                                    md: 40,
+                                                }}
+                                                borderRadius="5px"
+                                                border="2px solid black"
+                                            ></Image>
+                                        </Link>
                                         <VStack alignItems="left">
                                             <Text fontSize="12px" as="b">
-                                                {collectionDetails?.name ?? ""}
+                                                {collectionDetails?.name}
                                             </Text>
                                             <Text fontSize="12px" as="b">
                                                 {item.count} * LKR{" "}
-                                                {collectionDetails?.price ?? ""}
+                                                {collectionDetails?.price}
                                             </Text>
                                             <ButtonGroup
                                                 size="sm"

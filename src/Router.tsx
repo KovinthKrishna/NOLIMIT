@@ -7,6 +7,7 @@ import Women from "./pages/Women";
 import Men from "./pages/Men";
 import Kids from "./pages/Kids";
 import Cart from "./pages/Cart";
+import { Products } from "./pages/Products";
 
 function Router() {
     return useRoutes([
@@ -28,6 +29,15 @@ function Router() {
                 {
                     path: "Offers",
                     element: <Collections />,
+                },
+            ],
+        },
+        {
+            path: "products",
+            children: [
+                {
+                    path: ":id",
+                    element: <Products />,
                 },
             ],
         },

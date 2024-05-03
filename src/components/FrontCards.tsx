@@ -12,6 +12,7 @@ import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import { FaCartPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 interface Props {
     startIndex: number;
@@ -112,10 +113,12 @@ const FrontCards = ({ startIndex, endIndex }: Props) => {
                                 borderRadius="10px"
                                 key={collectionDetails.id}
                             >
-                                <Image
-                                    src={collectionDetails.image}
-                                    style={{ cursor: "pointer" }}
-                                ></Image>
+                                <Link to={`/products/${collectionDetails.id}`}>
+                                    <Image
+                                        src={collectionDetails.image}
+                                        style={{ cursor: "pointer" }}
+                                    ></Image>
+                                </Link>
                                 <hr />
                                 <HStack
                                     justifyContent="space-between"

@@ -7,7 +7,7 @@ const Links = () => {
             <Heading fontSize="12px" fontWeight="900" paddingY="15px">
                 QUICK LINKS
             </Heading>
-            <Link to="customer-care/about-us">
+            <Link to="/customer-care/about-us">
                 <Text
                     fontSize="12px"
                     fontWeight="bold"

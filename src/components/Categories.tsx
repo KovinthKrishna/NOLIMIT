@@ -18,7 +18,7 @@ const Categories = () => {
             spacing="20px"
             justifyItems="center"
         >
-            <Link to="categories/Women">
+            <Link to="/categories/Women">
                 <Card
                     maxWidth="md"
                     overflow="hidden"
@@ -38,7 +38,7 @@ const Categories = () => {
                     </Stack>
                 </Card>
             </Link>
-            <Link to="categories/Men">
+            <Link to="/categories/Men">
                 <Card
                     maxWidth="md"
                     overflow="hidden"
@@ -58,7 +58,7 @@ const Categories = () => {
                     </Stack>
                 </Card>
             </Link>
-            <Link to="categories/Kids">
+            <Link to="/categories/Kids">
                 <Card
                     maxWidth="md"
                     overflow="hidden"

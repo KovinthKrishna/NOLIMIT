@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import collectionsDetails from "./collectionsDetails";
 import { FaCartPlus } from "react-icons/fa";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 interface Props {
     category: string;
@@ -91,10 +92,12 @@ const FilteredCards = ({ category }: Props) => {
                                 borderRadius="10px"
                                 key={collectionDetails.id}
                             >
-                                <Image
-                                    src={collectionDetails.image}
-                                    style={{ cursor: "pointer" }}
-                                ></Image>
+                                <Link to={`/products/${collectionDetails.id}`}>
+                                    <Image
+                                        src={collectionDetails.image}
+                                        style={{ cursor: "pointer" }}
+                                    ></Image>
+                                </Link>
                                 <hr />
                                 <HStack
                                     justifyContent="space-between"

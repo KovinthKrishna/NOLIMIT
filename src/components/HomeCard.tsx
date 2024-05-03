@@ -3,10 +3,13 @@ import welcome_1 from "../assets/welcome_1.webp";
 import welcome_2 from "../assets/welcome_2.webp";
 import welcome_3 from "../assets/welcome_3.webp";
 import welcome_4 from "../assets/welcome_4.webp";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 const HomeCard = () => {
-    const images = [welcome_1, welcome_2, welcome_3, welcome_4];
+    const images = useMemo(
+        () => [welcome_1, welcome_2, welcome_3, welcome_4],
+        []
+    );
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     useEffect(() => {
