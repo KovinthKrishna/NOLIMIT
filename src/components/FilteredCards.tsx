@@ -169,9 +169,13 @@ const FilteredCards = ({ category }: Props) => {
                         <Button
                             key={index}
                             colorScheme="teal"
-                            variant={page == label ? "solid" : "ghost"}
+                            variant={page == label ? "solid" : "outline"}
                             onClick={() => {
                                 setPage(label);
+                                window.scrollTo({
+                                    top: 0,
+                                    behavior: "smooth",
+                                });
                             }}
                         >
                             {label}

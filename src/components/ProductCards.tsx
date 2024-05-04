@@ -121,7 +121,12 @@ const ProductCards = ({ category, productID }: Props) => {
                                 borderRadius="10px"
                                 key={collectionDetails.id}
                             >
-                                <Link to={`/products/${collectionDetails.id}`}>
+                                <Link
+                                    to={`/products/${collectionDetails.id}`}
+                                    onClick={() => {
+                                        setStart(0);
+                                    }}
+                                >
                                     <Image
                                         src={collectionDetails.image}
                                         style={{ cursor: "pointer" }}
