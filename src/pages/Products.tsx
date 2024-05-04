@@ -15,6 +15,7 @@ import collectionsDetails from "../components/collectionsDetails";
 import { AddIcon, CheckIcon, MinusIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ProductCards from "../components/ProductCards";
 
 export const Products = () => {
     const [buyCount, setBuyCount] = useState(1);
@@ -165,6 +166,13 @@ export const Products = () => {
                         </HStack>
                     </VStack>
                 </SimpleGrid>
+            </GridItem>
+            <hr />
+            <GridItem>
+                <ProductCards
+                    category={product?.category ?? ""}
+                    productID={product?.id ?? 0}
+                />
             </GridItem>
         </Grid>
     );
