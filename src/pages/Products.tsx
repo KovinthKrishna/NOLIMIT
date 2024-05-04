@@ -144,6 +144,7 @@ export const Products = () => {
                                     setButton(true);
                                     setTimeout(() => {
                                         setButton(false);
+                                        setBuyCount(1);
                                     }, 2000);
                                 }}
                             >
