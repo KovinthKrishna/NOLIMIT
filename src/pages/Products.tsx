@@ -64,6 +64,7 @@ export const Products = () => {
                 if (cart) {
                     navigate("/cart");
                 }
+                setBuyCount(1);
             })
             .catch((err) => console.log(err));
     };
@@ -81,6 +82,7 @@ export const Products = () => {
                 if (cart) {
                     navigate("/cart");
                 }
+                setBuyCount(1);
             })
             .catch((err) => console.log(err));
     };
@@ -144,7 +146,6 @@ export const Products = () => {
                                     setButton(true);
                                     setTimeout(() => {
                                         setButton(false);
-                                        setBuyCount(1);
                                     }, 2000);
                                 }}
                             >
