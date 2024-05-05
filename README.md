@@ -23,7 +23,7 @@ To start server :- npm start
 
 # Workload matrix
 
-224109V - Homepage, Back-end, and all other
-224141K - Sales page
-224254J - Women, Men, Kids page (Same Component)
-225549C - Gift Cards page and About us page
+1. 224109V - Homepage, Back-end, and all other
+2. 224141K - Sales page
+3. 224254J - Women, Men, Kids page (Same Component)
+4. 225549C - Gift Cards page and About us page
