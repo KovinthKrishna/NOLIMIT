@@ -24,7 +24,7 @@ const Cart = () => {
 
     useEffect(() => {
         axios
-            .get("https://nolimit-server.vercel.app/")
+            .get("http://localhost:3000")
             .then((result) => setItems(result.data))
             .catch((err) => console.log(err));
     }, [refresh]);
@@ -47,7 +47,7 @@ const Cart = () => {
 
     const Add = (item: { _id: string; count: number }) => {
         axios
-            .put("https://nolimit-server.vercel.app/update/items/" + item._id, {
+            .put("http://localhost:3000/update/items/" + item._id, {
                 count: item.count + 1,
             })
             .then(() => {
@@ -58,7 +58,7 @@ const Cart = () => {
 
     const Minus = (item: { _id: string; count: number }) => {
         axios
-            .put("https://nolimit-server.vercel.app/update/items/" + item._id, {
+            .put("http://localhost:3000/update/items/" + item._id, {
                 count: item.count - 1,
             })
             .then(() => {
@@ -69,9 +69,7 @@ const Cart = () => {
 
     const Delete = (item: { _id: string }) => {
         axios
-            .delete(
-                "https://nolimit-server.vercel.app/delete/items/" + item._id
-            )
+            .delete("http://localhost:3000/delete/items/" + item._id)
             .then(() => {
                 setRefresh(true);
             })

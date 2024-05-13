@@ -33,7 +33,7 @@ export const Products = () => {
 
     useEffect(() => {
         axios
-            .get("https://nolimit-server.vercel.app/")
+            .get("http://localhost:3000")
             .then((result) => setItems(result.data))
             .catch((err) => console.log(err));
     }, [refresh]);
@@ -56,7 +56,7 @@ export const Products = () => {
 
     const AddToCart = (id: number, cart: boolean) => {
         axios
-            .post("https://nolimit-server.vercel.app/add/items", {
+            .post("http://localhost:3000/add/items", {
                 id: id,
                 count: buyCount,
             })
@@ -75,13 +75,9 @@ export const Products = () => {
         cart: boolean
     ) => {
         axios
-            .put(
-                "https://nolimit-server.vercel.app/update/items/" +
-                    duplicate._id,
-                {
-                    count: duplicate.count + buyCount,
-                }
-            )
+            .put("http://localhost:3000/update/items/" + duplicate._id, {
+                count: duplicate.count + buyCount,
+            })
             .then(() => {
                 setRefresh(true);
                 if (cart) {
