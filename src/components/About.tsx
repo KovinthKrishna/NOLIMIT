@@ -8,7 +8,7 @@ const About = () => {
 
     const Submit = () => {
         axios
-            .post("http://localhost:3000/api/users", { email })
+            .post("https://nolimit-server.vercel.app/api/users", { email })
             .then(() => {
                 console.log("Subscription successful");
                 setEmail("");
