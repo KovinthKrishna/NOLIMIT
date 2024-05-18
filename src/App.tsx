@@ -7,7 +7,7 @@ import Router from "./Router";
 const App = () => {
     return (
         <Grid>
-            <GridItem>
+            <GridItem position="sticky" top={0} zIndex={1}>
                 <NavBar />
             </GridItem>
             <GridItem>

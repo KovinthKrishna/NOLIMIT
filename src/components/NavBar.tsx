@@ -2,14 +2,32 @@ import { Button, HStack, IconButton, Image, Show } from "@chakra-ui/react";
 import logo from "../assets/logo.svg";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const NavBar = () => {
+    const [scroll, setScroll] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setScroll(true);
+            } else {
+                setScroll(false);
+            }
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     return (
         <HStack
             justifyContent="space-between"
             paddingX="50px"
             height="75px"
             shadow="0px 0px 2px"
+            backgroundColor={scroll ? "#2E3D52" : "white"}
         >
             <Link to="/">
                 <Image src={logo} boxSize="120px" />
@@ -21,6 +39,12 @@ const NavBar = () => {
                             variant="ghost"
                             fontSize="12px"
                             fontWeight="bolder"
+                            color={scroll ? "white" : "black"}
+                            _hover={
+                                scroll
+                                    ? { color: "black", bgColor: "white" }
+                                    : { bgColor: "#F9FAFB" }
+                            }
                         >
                             WOMEN
                         </Button>
@@ -30,6 +54,12 @@ const NavBar = () => {
                             variant="ghost"
                             fontSize="12px"
                             fontWeight="bolder"
+                            color={scroll ? "white" : "black"}
+                            _hover={
+                                scroll
+                                    ? { color: "black", bgColor: "white" }
+                                    : { bgColor: "#F9FAFB" }
+                            }
                         >
                             MEN
                         </Button>
@@ -39,6 +69,12 @@ const NavBar = () => {
                             variant="ghost"
                             fontSize="12px"
                             fontWeight="bolder"
+                            color={scroll ? "white" : "black"}
+                            _hover={
+                                scroll
+                                    ? { color: "black", bgColor: "white" }
+                                    : { bgColor: "#F9FAFB" }
+                            }
                         >
                             KIDS
                         </Button>
@@ -48,14 +84,19 @@ const NavBar = () => {
                             variant="ghost"
                             fontSize="12px"
                             fontWeight="bolder"
-                            colorScheme="red"
+                            color={scroll ? "white" : "black"}
+                            _hover={
+                                scroll
+                                    ? { color: "#E53E3E", bgColor: "white" }
+                                    : { color: "#E53E3E", bgColor: "#F9FAFB" }
+                            }
                         >
                             GIFT CARDS
                         </Button>
                     </Link>
                     <Link to="/collections/Offers">
                         <Button
-                            variant="solid"
+                            variant={scroll ? "solid" : "ghost"}
                             fontSize="12px"
                             fontWeight="bolder"
                             colorScheme="red"
@@ -72,6 +113,7 @@ const NavBar = () => {
                         isRound={true}
                         aria-label="Cart"
                         icon={<MdOutlineShoppingBag />}
+                        color={scroll ? "white" : "black"}
                     ></IconButton>
                 </Link>
                 <Show above="md">
@@ -80,6 +122,7 @@ const NavBar = () => {
                         fontSize="12px"
                         fontWeight="bolder"
                         shadow="0px 0px 1px"
+                        color={scroll ? "white" : "black"}
                     >
                         Track My Order
                     </Button>
