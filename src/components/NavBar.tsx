@@ -114,15 +114,17 @@ const NavBar = () => {
                         aria-label="Cart"
                         icon={<MdOutlineShoppingBag />}
                         color={scroll ? "white" : "black"}
+                        _hover={{ bgColor: "#9CA3AF" }}
                     ></IconButton>
                 </Link>
                 <Show above="md">
                     <Button
-                        variant="outline"
+                        variant="solid"
                         fontSize="12px"
                         fontWeight="bolder"
                         shadow="0px 0px 1px"
-                        color={scroll ? "white" : "black"}
+                        bgColor="white"
+                        _hover={{ bgColor: "white" }}
                     >
                         Track My Order
                     </Button>
