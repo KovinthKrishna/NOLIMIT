@@ -54,5 +54,4 @@ export const setItem = async (id: number, change: number) => {
     } else {
         await updateItem(duplicate, change);
     }
-    return await fetchItem();
 };

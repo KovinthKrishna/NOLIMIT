@@ -1,35 +1,25 @@
-import {
-    Button,
-    ButtonGroup,
-    Card,
-    HStack,
-    IconButton,
-    Image,
-    SimpleGrid,
-    Text,
-    VStack,
-} from "@chakra-ui/react";
-import { MdDelete } from "react-icons/md";
+import { SimpleGrid, Text } from "@chakra-ui/react";
 import collectionsDetails from "../components/collectionsDetails";
 import { useEffect, useState } from "react";
-import { MinusIcon, AddIcon } from "@chakra-ui/icons";
 import CartBalance from "../components/CartBalance";
-import { Link } from "react-router-dom";
-import { fetchItem, setItem } from "../hooks/useItem";
+import { fetchItem } from "../hooks/useItem";
+import CartItem from "../components/CartItem";
 
 const Cart = () => {
     const [items, setItems] = useState([]);
+    const [refresh, setRefresh] = useState(false);
     const [total, setTotal] = useState(0);
 
     const loadItems = async () => {
-        setItems((await fetchItem()) ?? []);
+        const data = await fetchItem();
+        setItems(data ?? []);
     };
     useEffect(() => {
         loadItems();
-    }, []);
+    }, [refresh]);
 
-    const buyItem = async (id: number, change: number) => {
-        setItems((await setItem(id, change)) ?? []);
+    const getRefresh = () => {
+        setRefresh(!refresh);
     };
 
     useEffect(() => {
@@ -73,74 +63,13 @@ const Cart = () => {
                         }
                     );
                     return (
-                        <Card
-                            shadow="0 0 4px"
-                            borderRadius="5px"
-                            key={collectionDetails?.id}
-                        >
-                            <HStack
-                                justifyContent="space-between"
-                                padding={{ base: 2, md: 4 }}
-                            >
-                                <HStack spacing={{ base: 2, lg: 4 }}>
-                                    <Link
-                                        to={`/products/${collectionDetails?.id}`}
-                                    >
-                                        <Image
-                                            src={collectionDetails?.image}
-                                            height={{
-                                                base: "80px",
-                                                md: 40,
-                                            }}
-                                            borderRadius="5px"
-                                            border="2px solid black"
-                                        ></Image>
-                                    </Link>
-                                    <VStack alignItems="left">
-                                        <Text fontSize="12px" as="b">
-                                            {collectionDetails?.name}
-                                        </Text>
-                                        <Text fontSize="12px" as="b">
-                                            {item.count} * LKR{" "}
-                                            {collectionDetails?.price}
-                                        </Text>
-                                        <ButtonGroup
-                                            size="sm"
-                                            isAttached
-                                            variant="outline"
-                                        >
-                                            <IconButton
-                                                aria-label="Minus"
-                                                icon={<MinusIcon />}
-                                                isDisabled={item.count <= 1}
-                                                onClick={() => {
-                                                    buyItem(item.id, -1);
-                                                }}
-                                            />
-                                            <Button>{item.count}</Button>
-                                            <IconButton
-                                                aria-label="Add"
-                                                icon={<AddIcon />}
-                                                onClick={() =>
-                                                    buyItem(item.id, 1)
-                                                }
-                                            />
-                                        </ButtonGroup>
-                                    </VStack>
-                                </HStack>
-                                <IconButton
-                                    colorScheme="red"
-                                    variant="ghost"
-                                    isRound={true}
-                                    aria-label="Remove"
-                                    icon={<MdDelete />}
-                                    size="lg"
-                                    onClick={() => {
-                                        buyItem(item.id, 0);
-                                    }}
-                                ></IconButton>
-                            </HStack>
-                        </Card>
+                        collectionDetails && (
+                            <CartItem
+                                collectionDetails={collectionDetails}
+                                item={item}
+                                getRefresh={getRefresh}
+                            />
+                        )
                     );
                 })}
             </SimpleGrid>
