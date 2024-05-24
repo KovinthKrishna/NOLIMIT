@@ -19,21 +19,18 @@ import { fetchItem, setItem } from "../hooks/useItem";
 
 const Cart = () => {
     const [items, setItems] = useState([]);
-    const [refresh, setRefresh] = useState(false);
     const [total, setTotal] = useState(0);
 
     const loadItems = async () => {
-        const data = await fetchItem();
-        setItems(data ?? []);
+        setItems((await fetchItem()) ?? []);
     };
-
-    const buyItem = async (id: number, change: number) => {
-        (await setItem(id, change)) && setRefresh(!refresh);
-    };
-
     useEffect(() => {
         loadItems();
-    }, [refresh]);
+    }, []);
+
+    const buyItem = async (id: number, change: number) => {
+        setItems((await setItem(id, change)) ?? []);
+    };
 
     useEffect(() => {
         let totalPrice = 0;

@@ -4,14 +4,13 @@ const URL = "http://localhost:3000";
 
 export const fetchItem = async () => {
     try {
-        const result = await axios.get(URL);
-        return result.data;
+        return (await axios.get(URL)).data;
     } catch (err) {
         console.error(err);
     }
 };
 
-const newItem = async (id: number, change: number): Promise<boolean> => {
+const newItem = async (id: number, change: number) => {
     try {
         if (id !== 0) {
             await axios.post(`${URL}/add/items`, {
@@ -19,51 +18,41 @@ const newItem = async (id: number, change: number): Promise<boolean> => {
                 count: change,
             });
         }
-        return true;
     } catch (err) {
         console.error(err);
-        return false;
     }
 };
 
 const updateItem = async (
     duplicate: { _id: string; count: number },
     change: number
-): Promise<boolean> => {
+) => {
     try {
         await axios.put(`${URL}/update/items/` + duplicate._id, {
             count: duplicate.count + change,
         });
-        return true;
     } catch (err) {
         console.error(err);
-        return false;
     }
 };
 
-const deleteItem = async (duplicate: { _id: string }): Promise<boolean> => {
+const deleteItem = async (duplicate: { _id: string }) => {
     try {
         await axios.delete(`${URL}/delete/items/` + duplicate._id);
-        return true;
     } catch (err) {
         console.error(err);
-        return false;
     }
 };
 
-export const setItem = async (id: number, change: number): Promise<boolean> => {
-    try {
-        const items = await fetchItem();
-        const duplicate = items.find((item: { id: number }) => item.id === id);
-
-        if (duplicate === undefined) {
-            return await newItem(id, change);
-        } else if (change === 0) {
-            return await deleteItem(duplicate);
-        } else {
-            return await updateItem(duplicate, change);
-        }
-    } catch {
-        return false;
+export const setItem = async (id: number, change: number) => {
+    const items = await fetchItem();
+    const duplicate = items.find((item: { id: number }) => item.id === id);
+    if (duplicate === undefined) {
+        await newItem(id, change);
+    } else if (change === 0) {
+        await deleteItem(duplicate);
+    } else {
+        await updateItem(duplicate, change);
     }
+    return await fetchItem();
 };
