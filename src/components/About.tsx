@@ -6,14 +6,13 @@ import axios from "axios";
 const About = () => {
     const [email, setEmail] = useState("");
 
-    const Submit = () => {
+    const submit = () => {
         axios
             .post("http://localhost:3000/api/users", { email })
             .then(() => {
-                console.log("Subscription successful");
                 setEmail("");
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     };
 
     return (
@@ -35,7 +34,7 @@ const About = () => {
                     colorScheme="teal"
                     variant="solid"
                     isDisabled={!email.includes("@")}
-                    onClick={Submit}
+                    onClick={submit}
                 >
                     Subscribe
                 </Button>

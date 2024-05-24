@@ -14,11 +14,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import collectionsDetails from "../components/collectionsDetails";
 import { AddIcon, CheckIcon, MinusIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import ProductCards from "../components/ProductCards";
+import { setItem } from "../hooks/useItem";
 
 export const Products = () => {
     const [buyCount, setBuyCount] = useState(1);
+    const [button, setButton] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
     const product = collectionsDetails.find((collectionDetails) => {
@@ -26,66 +27,14 @@ export const Products = () => {
             return true;
         }
     });
-
-    const [button, setButton] = useState(false);
-    const [items, setItems] = useState([]);
-    const [refresh, setRefresh] = useState(false);
-
     useEffect(() => {
-        axios
-            .get("http://localhost:3000")
-            .then((result) => setItems(result.data))
-            .catch((err) => console.log(err));
-    }, [refresh]);
-
-    const Add = (id: number, cart: boolean) => {
-        setRefresh(false);
-        const duplicate = items.find((item: { id: number; count: number }) => {
-            if (item.id === id) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-        if (duplicate === undefined) {
-            AddToCart(id, cart);
-        } else {
-            Update(duplicate, cart);
+        if (!product) {
+            navigate("/collections/Offers");
         }
-    };
-
-    const AddToCart = (id: number, cart: boolean) => {
-        axios
-            .post("http://localhost:3000/add/items", {
-                id: id,
-                count: buyCount,
-            })
-            .then(() => {
-                setRefresh(true);
-                if (cart) {
-                    navigate("/cart");
-                }
-                setBuyCount(1);
-            })
-            .catch((err) => console.log(err));
-    };
-
-    const Update = (
-        duplicate: { _id: string; id: number; count: number },
-        cart: boolean
-    ) => {
-        axios
-            .put("http://localhost:3000/update/items/" + duplicate._id, {
-                count: duplicate.count + buyCount,
-            })
-            .then(() => {
-                setRefresh(true);
-                if (cart) {
-                    navigate("/cart");
-                }
-                setBuyCount(1);
-            })
-            .catch((err) => console.log(err));
+    }, [product, navigate]);
+    const buyItem = async (id: number, change: number) => {
+        await setItem(id, change);
+        setBuyCount(1);
     };
 
     return (
@@ -143,7 +92,7 @@ export const Products = () => {
                                 width="100%"
                                 isDisabled={button}
                                 onClick={() => {
-                                    Add(product?.id || 0, false);
+                                    buyItem(product?.id ?? 0, buyCount);
                                     setButton(true);
                                     setTimeout(() => {
                                         setButton(false);
@@ -156,8 +105,8 @@ export const Products = () => {
                                 colorScheme="teal"
                                 variant="outline"
                                 width="100%"
-                                onClick={() => {
-                                    Add(product?.id || 0, true);
+                                onClick={async () => {
+                                    await buyItem(product?.id ?? 0, buyCount);
                                     navigate("/cart");
                                 }}
                             >
