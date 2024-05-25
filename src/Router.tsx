@@ -3,11 +3,9 @@ import Home from "./pages/Home";
 import Gifts from "./pages/Gifts";
 import Collections from "./pages/Collections";
 import AboutUs from "./pages/AboutUs";
-import Women from "./pages/Women";
-import Men from "./pages/Men";
-import Kids from "./pages/Kids";
 import Cart from "./pages/Cart";
-import { Products } from "./pages/Products";
+import Category from "./pages/Category";
+import Products from "./pages/Products";
 import { useEffect } from "react";
 
 const ScrollToTop = () => {
@@ -71,16 +69,8 @@ function Router() {
                     path: "categories",
                     children: [
                         {
-                            path: "Women",
-                            element: <Women />,
-                        },
-                        {
-                            path: "Men",
-                            element: <Men />,
-                        },
-                        {
-                            path: "Kids",
-                            element: <Kids />,
+                            path: ":category",
+                            element: <Category />,
                         },
                     ],
                 },

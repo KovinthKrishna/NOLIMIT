@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import ProductCards from "../components/ProductCards";
 import { setItem } from "../hooks/useItem";
 
-export const Products = () => {
+const Products = () => {
     const [buyCount, setBuyCount] = useState(1);
     const [button, setButton] = useState(false);
     const { id } = useParams();
@@ -126,3 +126,5 @@ export const Products = () => {
         </Grid>
     );
 };
+
+export default Products;

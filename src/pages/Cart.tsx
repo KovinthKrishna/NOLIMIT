@@ -65,6 +65,7 @@ const Cart = () => {
                     return (
                         collectionDetails && (
                             <CartItem
+                                key={collectionDetails.id}
                                 collectionDetails={collectionDetails}
                                 item={item}
                                 getRefresh={getRefresh}
