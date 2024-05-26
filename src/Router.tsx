@@ -1,7 +1,6 @@
 import { useLocation, useRoutes } from "react-router-dom";
 import Home from "./pages/Home";
 import Gifts from "./pages/Gifts";
-import Collections from "./pages/Collections";
 import AboutUs from "./pages/AboutUs";
 import Cart from "./pages/Cart";
 import Category from "./pages/Category";
@@ -43,7 +42,7 @@ function Router() {
                     children: [
                         {
                             path: "Offers",
-                            element: <Collections />,
+                            element: <Category />,
                         },
                     ],
                 },

@@ -1,21 +1,24 @@
 import { Button, HStack, SimpleGrid } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import collectionsDetails from "./collectionsDetails";
 import Cards from "./Cards";
 
 interface Props {
-    category: string;
+    category: string | undefined;
 }
 
 const FilteredCards = ({ category }: Props) => {
     const [page, setPage] = useState(1);
-    const products = collectionsDetails.filter(
-        (product) => product.category === category
-    );
+    const products = category
+        ? collectionsDetails.filter((product) => product.category === category)
+        : collectionsDetails;
     const pages = Array.from(
         { length: Math.ceil(products.length / 12) },
         (_, index) => index + 1
     );
+    useEffect(() => {
+        setPage(1);
+    }, [category]);
 
     return (
         <>
