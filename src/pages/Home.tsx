@@ -1,10 +1,11 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import HomeCard from "../components/HomeCard";
-import Offers from "../components/Offers";
 import Categories from "../components/Categories";
 import Brands from "../components/Brands";
 import Arrivals from "../components/Arrivals";
 import Trending from "../components/Trending";
+import offersDetails from "../components/offersDetails";
+import categoriesDetails from "../components/categoriesDetails";
 
 const Home = () => {
     return (
@@ -13,10 +14,10 @@ const Home = () => {
                 <HomeCard />
             </GridItem>
             <GridItem padding="4%">
-                <Offers />
+                <Categories categories={offersDetails} />
             </GridItem>
             <GridItem padding="4%" backgroundColor="#F3F4F6">
-                <Categories />
+                <Categories categories={categoriesDetails} />
             </GridItem>
             <GridItem padding="5%">
                 <Arrivals />

@@ -12,6 +12,7 @@ const GiftBanner = () => {
                 alignItems="left"
                 justifyContent="center"
                 order={{ base: 2, lg: 1 }}
+                width="100%"
             >
                 <Text fontSize="12px" color="#374151" fontWeight="bolder">
                     Home | Gift Vouchers
