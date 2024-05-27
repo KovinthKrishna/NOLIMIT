@@ -1,76 +1,53 @@
-import { SimpleGrid, HStack, IconButton } from "@chakra-ui/react";
+import { Button, Grid, GridItem, Show, Text } from "@chakra-ui/react";
 import collectionsDetails from "./collectionsDetails";
-import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
-import { useEffect, useState } from "react";
-import Cards from "./Cards";
+import ProductCards from "./ProductCards";
 
 interface Props {
-    startIndex: number;
-    endIndex: number;
+    title: string;
+    description: string;
+    start: number;
+    end: number;
 }
 
-const FrontCards = ({ startIndex, endIndex }: Props) => {
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-    const handleResize = () => {
-        setWindowWidth(window.innerWidth);
-    };
-
-    useEffect(() => {
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
-
-    const products = collectionsDetails.slice(startIndex, endIndex);
-    const [start, setStart] = useState(0);
-    const length = windowWidth < 768 ? 1 : windowWidth < 992 ? 3 : 4;
-    if (start > products.length - length) {
-        setStart(products.length - length);
-    }
+const Arrivals = ({ title, description, start, end }: Props) => {
+    const products = collectionsDetails.slice(start, end);
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    const formattedDate = `${year} - ${month < 10 ? "0" + month : month} - ${
+        day < 10 ? "0" + day : day
+    }`;
 
     return (
-        <HStack paddingTop={14} justifyContent="center" spacing={0}>
-            <IconButton
-                colorScheme="gray"
-                aria-label="Previous"
-                icon={<CgChevronLeft />}
-                size="lg"
-                onClick={() => {
-                    setStart(start - 1);
-                }}
-                isDisabled={start == 0}
-            />
-            <SimpleGrid
-                columns={{ base: 1, md: 3, lg: 4 }}
-                justifyItems="center"
-                spacing={6}
-            >
-                {products
-                    .slice(start, start + length)
-                    .map((collectionDetails) => {
-                        return (
-                            <Cards
-                                collectionDetails={collectionDetails}
-                                key={collectionDetails.id}
-                            />
-                        );
-                    })}
-            </SimpleGrid>
-            <IconButton
-                colorScheme="gray"
-                aria-label="Next"
-                icon={<CgChevronRight />}
-                size="lg"
-                onClick={() => {
-                    setStart(start + 1);
-                }}
-                isDisabled={products.length == start + length}
-            />
-        </HStack>
+        <Grid>
+            <GridItem>
+                <Show above="md">
+                    <Text fontSize={12} fontWeight="800">
+                        {formattedDate}
+                    </Text>
+                </Show>
+                <Text fontSize={{ base: 30, lg: 36 }} fontWeight="900">
+                    {title}
+                </Text>
+                <Text fontSize={14} fontWeight="800" paddingY={2}>
+                    {description}
+                </Text>
+                <Button
+                    colorScheme="gray"
+                    variant="outline"
+                    paddingX={6}
+                    paddingY={3}
+                    marginTop={6}
+                >
+                    View All
+                </Button>
+            </GridItem>
+            <GridItem>
+                <ProductCards products={products} />
+            </GridItem>
+        </Grid>
     );
 };
 
-export default FrontCards;
+export default Arrivals;

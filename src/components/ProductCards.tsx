@@ -1,15 +1,21 @@
 import { SimpleGrid, HStack, IconButton } from "@chakra-ui/react";
-import collectionsDetails from "./collectionsDetails";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import { useEffect, useState } from "react";
 import Cards from "./Cards";
 
-interface Props {
+interface Products {
+    id: number;
+    image: string;
     category: string;
-    productID: number;
+    name: string;
+    price: string;
 }
 
-const ProductCards = ({ category, productID }: Props) => {
+interface Props {
+    products: Products[];
+}
+
+const ProductCards = ({ products }: Props) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const handleResize = () => {
@@ -24,14 +30,14 @@ const ProductCards = ({ category, productID }: Props) => {
         };
     }, []);
 
-    const products = collectionsDetails.filter(
-        (product) => product.category === category && product.id !== productID
-    );
     const [start, setStart] = useState(0);
     const length = windowWidth < 768 ? 1 : windowWidth < 992 ? 3 : 4;
     if (start > products.length - length) {
         setStart(products.length - length);
     }
+    useEffect(() => {
+        setStart(0);
+    }, [products]);
 
     return (
         <HStack paddingTop={14} justifyContent="center" spacing={0}>

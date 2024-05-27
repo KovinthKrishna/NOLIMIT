@@ -2,8 +2,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import HomeCard from "../components/HomeCard";
 import Categories from "../components/Categories";
 import Brands from "../components/Brands";
-import Arrivals from "../components/Arrivals";
-import Trending from "../components/Trending";
+import FrontCards from "../components/FrontCards";
 import offersDetails from "../components/offersDetails";
 import categoriesDetails from "../components/categoriesDetails";
 
@@ -20,10 +19,21 @@ const Home = () => {
                 <Categories categories={categoriesDetails} />
             </GridItem>
             <GridItem padding="5%">
-                <Arrivals />
+                <FrontCards
+                    title="NEW ARRIVALS"
+                    description="Lets explore what is the new-in in our store."
+                    start={24}
+                    end={30}
+                />
             </GridItem>
             <GridItem padding="5%" backgroundColor="#F3F4F6">
-                <Trending />
+                <FrontCards
+                    title="TRENDING RIGHT NOW"
+                    description="Want to find out whats the trends among our customers? Lets
+                    check out."
+                    start={5}
+                    end={15}
+                />
             </GridItem>
             <GridItem paddingY="6%">
                 <Brands />
