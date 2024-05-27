@@ -9,7 +9,7 @@ interface Props {
     end: number;
 }
 
-const Arrivals = ({ title, description, start, end }: Props) => {
+const FrontCards = ({ title, description, start, end }: Props) => {
     const products = collectionsDetails.slice(start, end);
     const today = new Date();
     const year = today.getFullYear();
@@ -50,4 +50,4 @@ const Arrivals = ({ title, description, start, end }: Props) => {
     );
 };
 
-export default Arrivals;
+export default FrontCards;
