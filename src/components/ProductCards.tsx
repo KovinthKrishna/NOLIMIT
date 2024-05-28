@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./ProductCards.css";
 import Cards from "./Cards";
+import { useParams } from "react-router-dom";
 
 interface Products {
     id: number;
@@ -34,11 +34,7 @@ const CustomRightArrow = ({ onClick }: { onClick?: () => void }) => {
 };
 
 const ProductCards = ({ products }: Props) => {
-    const [carouselKey, setCarouselKey] = useState(0);
-
-    useEffect(() => {
-        setCarouselKey((prevKey) => prevKey + 1);
-    }, [products]);
+    const { id } = useParams();
     const responsive = {
         desktop: {
             breakpoint: { max: 4000, min: 992 },
@@ -55,7 +51,7 @@ const ProductCards = ({ products }: Props) => {
     };
     return (
         <Carousel
-            key={carouselKey}
+            key={parseInt(id ?? "0")}
             responsive={responsive}
             infinite={true}
             containerClass="carousel-container"

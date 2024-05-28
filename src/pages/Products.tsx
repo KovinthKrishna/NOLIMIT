@@ -23,7 +23,7 @@ const Products = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const product = collectionsDetails.find((collectionDetails) => {
-        if (id !== undefined && collectionDetails.id === parseInt(id)) {
+        if (id && collectionDetails.id === parseInt(id)) {
             return true;
         }
     });
