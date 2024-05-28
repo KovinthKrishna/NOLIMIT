@@ -12,43 +12,53 @@ import {
 } from "@chakra-ui/react";
 import { useParams, useNavigate } from "react-router-dom";
 import collectionsDetails from "../components/collectionsDetails";
-import { AddIcon, CheckIcon, MinusIcon } from "@chakra-ui/icons";
-import { useEffect, useState } from "react";
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { useContext, useEffect, useState } from "react";
 import ProductCards from "../components/ProductCards";
-import { setItem } from "../hooks/useItem";
+import { fetchItem, newItem } from "../hooks/useItem";
+import { AppContext } from "../App";
 
 const Products = () => {
-    const [buyCount, setBuyCount] = useState(1);
-    const [button, setButton] = useState(false);
-    const { id } = useParams();
+    const handleShowAlert = useContext(AppContext);
     const navigate = useNavigate();
+    const [productCart, setProductCart] = useState(false);
+    const [buyCount, setBuyCount] = useState(1);
+    const [items, setItems] = useState([]);
+    const { id } = useParams();
+    const loadItems = async () => {
+        const data = await fetchItem();
+        setItems(data ?? []);
+    };
+    const duplicate = items.find(
+        (item: { id: number }) => id && item.id === parseInt(id)
+    );
+    useEffect(() => {
+        if (duplicate) {
+            setProductCart(true);
+        }
+    }, [duplicate]);
     const product = collectionsDetails.find((collectionDetails) => {
         if (id && collectionDetails.id === parseInt(id)) {
             return true;
         }
     });
     useEffect(() => {
-        if (!product) {
-            navigate("/collections/Offers");
-        }
-    }, [product, navigate]);
-    const buyItem = async (id: number, change: number) => {
-        await setItem(id, change);
+        setProductCart(false);
         setBuyCount(1);
-    };
+        loadItems();
+        product
+            ? (document.title = `NOLIMIT | ${product.name}`)
+            : navigate("/collections/Offers");
+    }, [product, navigate]);
     const products =
         product &&
         collectionsDetails.filter(
             (item) =>
                 item.category === product.category && item.id !== product.id
         );
-    useEffect(() => {
-        document.title = `NOLIMIT | ${product ? product.name : ""}`;
-    }, [product]);
 
     return (
-        product &&
-        products && (
+        product && (
             <Grid padding="5%">
                 <GridItem>
                     <Text fontSize={12} as="b">
@@ -87,7 +97,9 @@ const Products = () => {
                                     <IconButton
                                         aria-label="Minus"
                                         icon={<MinusIcon />}
-                                        isDisabled={buyCount === 1}
+                                        isDisabled={
+                                            buyCount === 1 || productCart
+                                        }
                                         onClick={() => {
                                             setBuyCount(buyCount - 1);
                                         }}
@@ -96,6 +108,7 @@ const Products = () => {
                                     <IconButton
                                         aria-label="Add"
                                         icon={<AddIcon />}
+                                        isDisabled={productCart}
                                         onClick={() => {
                                             setBuyCount(buyCount + 1);
                                         }}
@@ -105,30 +118,35 @@ const Products = () => {
                                     colorScheme="teal"
                                     variant="solid"
                                     width="100%"
-                                    isDisabled={button}
-                                    onClick={() => {
-                                        buyItem(product.id ?? 0, buyCount);
-                                        setButton(true);
-                                        setTimeout(() => {
-                                            setButton(false);
-                                        }, 2000);
+                                    isDisabled={productCart}
+                                    onClick={async () => {
+                                        const result = await newItem(
+                                            product.id,
+                                            buyCount
+                                        );
+                                        handleShowAlert(result ?? "");
+                                        setProductCart(true);
+                                        setBuyCount(1);
                                     }}
                                 >
-                                    {button ? <CheckIcon /> : "Add to Cart"}
+                                    {productCart
+                                        ? "Already in Cart"
+                                        : "Add to Cart"}
                                 </Button>
                                 <Button
                                     colorScheme="teal"
                                     variant="outline"
                                     width="100%"
                                     onClick={async () => {
-                                        await buyItem(
-                                            product.id ?? 0,
-                                            buyCount
-                                        );
+                                        !productCart &&
+                                            (await newItem(
+                                                product.id,
+                                                buyCount
+                                            ));
                                         navigate("/cart");
                                     }}
                                 >
-                                    Buy Now
+                                    {productCart ? "Go to Cart" : "Buy Now"}
                                 </Button>
                             </HStack>
                         </VStack>
@@ -136,7 +154,7 @@ const Products = () => {
                 </GridItem>
                 <hr />
                 <GridItem>
-                    <ProductCards products={products} />
+                    {products && <ProductCards products={products} />}
                 </GridItem>
             </Grid>
         )

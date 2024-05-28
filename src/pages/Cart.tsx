@@ -57,25 +57,27 @@ const Cart = () => {
                 paddingX={{ base: 2, md: 4, lg: 60 }}
                 spacing={{ base: 2, md: 4 }}
             >
-                {items.map((item: { id: number; count: number }) => {
-                    const collectionDetails = collectionsDetails.find(
-                        (collection) => {
-                            if (item.id === collection.id) {
-                                return true;
+                {items.map(
+                    (item: { _id: string; id: number; count: number }) => {
+                        const collectionDetails = collectionsDetails.find(
+                            (collection) => {
+                                if (item.id === collection.id) {
+                                    return true;
+                                }
                             }
-                        }
-                    );
-                    return (
-                        collectionDetails && (
-                            <CartItem
-                                key={collectionDetails.id}
-                                collectionDetails={collectionDetails}
-                                item={item}
-                                getRefresh={getRefresh}
-                            />
-                        )
-                    );
-                })}
+                        );
+                        return (
+                            collectionDetails && (
+                                <CartItem
+                                    key={collectionDetails.id}
+                                    collectionDetails={collectionDetails}
+                                    item={item}
+                                    getRefresh={getRefresh}
+                                />
+                            )
+                        );
+                    }
+                )}
             </SimpleGrid>
             <hr />
             <CartBalance total={total} />

@@ -10,7 +10,7 @@ export const fetchItem = async () => {
     }
 };
 
-const newItem = async (id: number, change: number) => {
+export const newItem = async (id: number, change: number) => {
     try {
         if (id !== 0) {
             await axios.post(`${URL}/add/items`, {
@@ -18,27 +18,29 @@ const newItem = async (id: number, change: number) => {
                 count: change,
             });
         }
+        return "Item added successfully.";
     } catch (err) {
         console.error(err);
     }
 };
 
-const updateItem = async (
-    duplicate: { _id: string; count: number },
+export const updateItem = async (
+    item: { _id: string; count: number },
     change: number
 ) => {
     try {
-        await axios.put(`${URL}/update/items/` + duplicate._id, {
-            count: duplicate.count + change,
+        await axios.put(`${URL}/update/items/` + item._id, {
+            count: item.count + change,
         });
     } catch (err) {
         console.error(err);
     }
 };
 
-const deleteItem = async (duplicate: { _id: string }) => {
+export const deleteItem = async (item: { _id: string }) => {
     try {
-        await axios.delete(`${URL}/delete/items/` + duplicate._id);
+        await axios.delete(`${URL}/delete/items/` + item._id);
+        return "Item deleted successfully.";
     } catch (err) {
         console.error(err);
     }
@@ -47,11 +49,9 @@ const deleteItem = async (duplicate: { _id: string }) => {
 export const setItem = async (id: number, change: number) => {
     const items = await fetchItem();
     const duplicate = items.find((item: { id: number }) => item.id === id);
-    if (duplicate === undefined) {
-        await newItem(id, change);
-    } else if (change === 0) {
-        await deleteItem(duplicate);
+    if (!duplicate) {
+        return await newItem(id, change);
     } else {
-        await updateItem(duplicate, change);
+        return "Already in cart!";
     }
 };

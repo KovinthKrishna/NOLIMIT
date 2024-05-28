@@ -11,8 +11,9 @@ import {
 } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { setItem } from "../hooks/useItem";
-import { useState } from "react";
+import { deleteItem, updateItem } from "../hooks/useItem";
+import { useContext, useState } from "react";
+import { AppContext } from "../App";
 
 interface Collection {
     id: number;
@@ -23,7 +24,7 @@ interface Collection {
 }
 
 interface Item {
-    id: number;
+    _id: string;
     count: number;
 }
 
@@ -34,14 +35,8 @@ interface Props {
 }
 
 const CartItem = ({ collectionDetails, item, getRefresh }: Props) => {
+    const handleShowAlert = useContext(AppContext);
     const [button, setButton] = useState(false);
-
-    const buyItem = async (id: number, change: number) => {
-        setButton(true);
-        await setItem(id, change);
-        getRefresh();
-        setButton(false);
-    };
 
     return (
         <Card shadow="0 0 4px" borderRadius="5px" key={collectionDetails.id}>
@@ -70,8 +65,11 @@ const CartItem = ({ collectionDetails, item, getRefresh }: Props) => {
                                 aria-label="Minus"
                                 icon={<MinusIcon />}
                                 isDisabled={item.count <= 1 || button}
-                                onClick={() => {
-                                    buyItem(item.id, -1);
+                                onClick={async () => {
+                                    setButton(true);
+                                    await updateItem(item, -1);
+                                    getRefresh();
+                                    setButton(false);
                                 }}
                             />
                             <Button>{item.count}</Button>
@@ -79,7 +77,12 @@ const CartItem = ({ collectionDetails, item, getRefresh }: Props) => {
                                 aria-label="Add"
                                 icon={<AddIcon />}
                                 isDisabled={button}
-                                onClick={() => buyItem(item.id, 1)}
+                                onClick={async () => {
+                                    setButton(true);
+                                    await updateItem(item, 1);
+                                    getRefresh();
+                                    setButton(false);
+                                }}
                             />
                         </ButtonGroup>
                     </VStack>
@@ -91,8 +94,9 @@ const CartItem = ({ collectionDetails, item, getRefresh }: Props) => {
                     aria-label="Remove"
                     icon={<MdDelete />}
                     size="lg"
-                    onClick={() => {
-                        buyItem(item.id, 0);
+                    onClick={async () => {
+                        handleShowAlert((await deleteItem(item)) ?? "");
+                        getRefresh();
                     }}
                 ></IconButton>
             </HStack>

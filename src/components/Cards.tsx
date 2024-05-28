@@ -1,9 +1,10 @@
 import { CheckIcon } from "@chakra-ui/icons";
 import { Card, Image, Stack, Text, HStack, IconButton } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { setItem } from "../hooks/useItem";
+import { AppContext } from "../App";
 
 interface Collections {
     id: number;
@@ -18,9 +19,16 @@ interface Props {
 }
 
 const Cards = ({ collectionDetails }: Props) => {
+    const handleShowAlert = useContext(AppContext);
+
     const [button, setButton] = useState(false);
     const buyItem = async (id: number, change: number) => {
-        await setItem(id, change);
+        setButton(true);
+        const result = await setItem(id, change);
+        handleShowAlert(result ?? "");
+        setTimeout(() => {
+            setButton(false);
+        }, 2000);
     };
 
     return (
@@ -50,10 +58,6 @@ const Cards = ({ collectionDetails }: Props) => {
                     isDisabled={button}
                     onClick={() => {
                         buyItem(collectionDetails.id, 1);
-                        setButton(true);
-                        setTimeout(() => {
-                            setButton(false);
-                        }, 2000);
                     }}
                 ></IconButton>
             </HStack>
