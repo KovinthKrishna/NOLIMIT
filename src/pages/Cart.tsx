@@ -37,6 +37,9 @@ const Cart = () => {
         });
         setTotal(totalPrice);
     }, [items]);
+    useEffect(() => {
+        document.title = `NOLIMIT | Cart(${items.length})`;
+    }, [items]);
 
     return (
         <>

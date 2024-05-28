@@ -26,10 +26,7 @@ const Cards = ({ collectionDetails }: Props) => {
     return (
         <Card overflow="hidden" borderRadius="10px">
             <Link to={`/products/${collectionDetails.id}`}>
-                <Image
-                    src={collectionDetails.image}
-                    style={{ cursor: "pointer" }}
-                ></Image>
+                <Image src={collectionDetails.image}></Image>
             </Link>
             <hr />
             <HStack justifyContent="space-between" padding={1}>

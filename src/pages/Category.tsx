@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Button, Grid, GridItem, HStack } from "@chakra-ui/react";
 import CategoryBanner from "../components/CategoryBanner";
 import FilteredCards from "../components/FilteredCards";
@@ -6,6 +7,9 @@ import CollectionBanner from "../components/CollectionBanner";
 
 const Category = () => {
     const { category } = useParams();
+    useEffect(() => {
+        document.title = `NOLIMIT | ${category ? category : ""}`;
+    }, [category]);
     return (
         <Grid>
             <GridItem backgroundColor="#F4F3F1" paddingY={{ base: 30, lg: 0 }}>

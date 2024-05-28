@@ -1,6 +1,10 @@
+import { useEffect } from "react";
 import { Grid, Text } from "@chakra-ui/react";
 
 const AboutUs = () => {
+    useEffect(() => {
+        document.title = "NOLIMIT | About Us";
+    }, []);
     return (
         <Grid padding={14}>
             <hr />

@@ -42,11 +42,14 @@ const Products = () => {
             (item) =>
                 item.category === product.category && item.id !== product.id
         );
+    useEffect(() => {
+        document.title = `NOLIMIT | ${product ? product.name : ""}`;
+    }, [product]);
 
     return (
         product &&
         products && (
-            <Grid padding={{ base: 4, lg: 8 }}>
+            <Grid padding="5%">
                 <GridItem>
                     <Text fontSize={12} as="b">
                         Home | {product.category}

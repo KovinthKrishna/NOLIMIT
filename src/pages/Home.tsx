@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import HomeCard from "../components/HomeCard";
 import Categories from "../components/Categories";
@@ -7,6 +8,10 @@ import offersDetails from "../components/offersDetails";
 import categoriesDetails from "../components/categoriesDetails";
 
 const Home = () => {
+    useEffect(() => {
+        document.title = "NOLIMIT | Home";
+    }, []);
+
     return (
         <Grid>
             <GridItem>
