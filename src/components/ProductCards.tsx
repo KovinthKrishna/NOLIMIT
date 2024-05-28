@@ -58,6 +58,8 @@ const ProductCards = ({ products }: Props) => {
             itemClass="carousel-item"
             customLeftArrow={<CustomLeftArrow />}
             customRightArrow={<CustomRightArrow />}
+            draggable={false}
+            swipeable={false}
         >
             {products.map((collectionDetails) => {
                 return (

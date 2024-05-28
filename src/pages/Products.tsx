@@ -15,41 +15,33 @@ import collectionsDetails from "../components/collectionsDetails";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { useContext, useEffect, useState } from "react";
 import ProductCards from "../components/ProductCards";
-import { fetchItem, newItem } from "../hooks/useItem";
+import { setItem } from "../hooks/useItem";
 import { AppContext } from "../App";
 
 const Products = () => {
-    const handleShowAlert = useContext(AppContext);
-    const navigate = useNavigate();
-    const [productCart, setProductCart] = useState(false);
-    const [buyCount, setBuyCount] = useState(1);
-    const [items, setItems] = useState([]);
     const { id } = useParams();
-    const loadItems = async () => {
-        const data = await fetchItem();
-        setItems(data ?? []);
-    };
-    const duplicate = items.find(
-        (item: { id: number }) => id && item.id === parseInt(id)
-    );
-    useEffect(() => {
-        if (duplicate) {
-            setProductCart(true);
-        }
-    }, [duplicate]);
+    const navigate = useNavigate();
+    const handleShowAlert = useContext(AppContext);
+    const [buyCount, setBuyCount] = useState(1);
+    const [added, setAdded] = useState(false);
     const product = collectionsDetails.find((collectionDetails) => {
         if (id && collectionDetails.id === parseInt(id)) {
             return true;
         }
     });
     useEffect(() => {
-        setProductCart(false);
-        setBuyCount(1);
-        loadItems();
         product
-            ? (document.title = `NOLIMIT | ${product.name}`)
+            ? (document.title = `NOLIMIT | ${product ? product.name : ""}`)
             : navigate("/collections/Offers");
+        setBuyCount(1);
+        setAdded(false);
     }, [product, navigate]);
+    const buyItem = async (id: number, change: number) => {
+        const result = await setItem(id, change);
+        handleShowAlert(result ?? "");
+        setBuyCount(1);
+        setAdded(true);
+    };
     const products =
         product &&
         collectionsDetails.filter(
@@ -97,9 +89,7 @@ const Products = () => {
                                     <IconButton
                                         aria-label="Minus"
                                         icon={<MinusIcon />}
-                                        isDisabled={
-                                            buyCount === 1 || productCart
-                                        }
+                                        isDisabled={buyCount === 1 || added}
                                         onClick={() => {
                                             setBuyCount(buyCount - 1);
                                         }}
@@ -108,7 +98,7 @@ const Products = () => {
                                     <IconButton
                                         aria-label="Add"
                                         icon={<AddIcon />}
-                                        isDisabled={productCart}
+                                        isDisabled={added}
                                         onClick={() => {
                                             setBuyCount(buyCount + 1);
                                         }}
@@ -118,35 +108,27 @@ const Products = () => {
                                     colorScheme="teal"
                                     variant="solid"
                                     width="100%"
-                                    isDisabled={productCart}
-                                    onClick={async () => {
-                                        const result = await newItem(
-                                            product.id,
-                                            buyCount
-                                        );
-                                        handleShowAlert(result ?? "");
-                                        setProductCart(true);
-                                        setBuyCount(1);
+                                    isDisabled={added}
+                                    onClick={() => {
+                                        buyItem(product.id, buyCount);
                                     }}
                                 >
-                                    {productCart
-                                        ? "Already in Cart"
-                                        : "Add to Cart"}
+                                    {added ? "Already in Cart" : "Add to Cart"}
                                 </Button>
                                 <Button
                                     colorScheme="teal"
                                     variant="outline"
                                     width="100%"
                                     onClick={async () => {
-                                        !productCart &&
-                                            (await newItem(
+                                        !added &&
+                                            (await buyItem(
                                                 product.id,
                                                 buyCount
                                             ));
                                         navigate("/cart");
                                     }}
                                 >
-                                    {productCart ? "Go to Cart" : "Buy Now"}
+                                    {added ? "Go to Cart" : "Buy Now"}
                                 </Button>
                             </HStack>
                         </VStack>

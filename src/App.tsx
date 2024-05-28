@@ -17,9 +17,8 @@ export const AppContext = createContext<ContextType>(() => {});
 
 const App = () => {
     const [alerts, setAlerts] = useState<Alerts[]>([]);
-    const [id, setId] = useState(0);
     const handleShowAlert = (result: string) => {
-        setId(id + 1);
+        const id = Date.now();
         setAlerts([...alerts, { id, result }]);
         setTimeout(() => {
             setAlerts((alerts) => alerts.filter((alert) => alert.id !== id));
