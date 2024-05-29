@@ -58,7 +58,7 @@ const Cart = () => {
                 spacing={{ base: 2, md: 4 }}
             >
                 {items.map(
-                    (item: { _id: string; id: number; count: number }) => {
+                    (item: { _id?: string; id: number; count: number }) => {
                         const collectionDetails = collectionsDetails.find(
                             (collection) => {
                                 if (item.id === collection.id) {

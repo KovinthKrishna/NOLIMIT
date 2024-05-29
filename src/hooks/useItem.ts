@@ -53,7 +53,7 @@ export const newItem = async (id: number, change: number) => {
 };
 
 export const updateItem = async (
-    item: { _id: string; id: number; count: number },
+    item: { _id?: string; id: number; count: number },
     change: number
 ) => {
     try {
@@ -74,7 +74,7 @@ export const updateItem = async (
     }
 };
 
-export const deleteItem = async (item: { _id: string; id: number }) => {
+export const deleteItem = async (item: { _id?: string; id: number }) => {
     try {
         await axios.delete(`${URL}/delete/items/` + item._id);
         await updateLocal();
