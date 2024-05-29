@@ -1,20 +1,11 @@
 import axios from "axios";
 
-interface ItemLocal {
-    id: number;
-    count: number;
-}
-
 const URL = "http://localhost:3000";
 
 const updateLocal = async () => {
     const items = (await axios.get(URL)).data;
     if (items) {
-        const itemsLocal: ItemLocal[] = [];
-        items.map((item: { id: number; count: number }) => {
-            itemsLocal.push({ id: item.id, count: item.count });
-        });
-        localStorage.setItem("itemsLocal", JSON.stringify(itemsLocal));
+        localStorage.setItem("itemsLocal", JSON.stringify(items));
     }
 };
 
@@ -23,8 +14,7 @@ export const fetchItem = async () => {
         const data = (await axios.get(URL)).data;
         await updateLocal();
         return data;
-    } catch (err) {
-        console.error(err);
+    } catch {
         return JSON.parse(localStorage.getItem("itemsLocal") ?? "[]");
     }
 };
@@ -39,8 +29,7 @@ export const newItem = async (id: number, change: number) => {
             await updateLocal();
             return "Item added successfully.";
         }
-    } catch (err) {
-        console.error(err);
+    } catch {
         if (id !== 0) {
             const itemsLocal = JSON.parse(
                 localStorage.getItem("itemsLocal") ?? "[]"
@@ -61,8 +50,7 @@ export const updateItem = async (
             count: item.count + change,
         });
         await updateLocal();
-    } catch (err) {
-        console.error(err);
+    } catch {
         const itemsLocal = JSON.parse(
             localStorage.getItem("itemsLocal") ?? "[]"
         );
@@ -79,8 +67,7 @@ export const deleteItem = async (item: { _id?: string; id: number }) => {
         await axios.delete(`${URL}/delete/items/` + item._id);
         await updateLocal();
         return "Item deleted successfully.";
-    } catch (err) {
-        console.error(err);
+    } catch {
         const itemsLocal = JSON.parse(
             localStorage.getItem("itemsLocal") ?? "[]"
         );

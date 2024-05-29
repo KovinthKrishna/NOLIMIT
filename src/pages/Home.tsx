@@ -6,6 +6,9 @@ import Brands from "../components/Brands";
 import FrontCards from "../components/FrontCards";
 import offersDetails from "../components/offersDetails";
 import categoriesDetails from "../components/categoriesDetails";
+import { motion } from "framer-motion";
+
+const MotionGridItem = motion(GridItem);
 
 const Home = () => {
     useEffect(() => {
@@ -14,24 +17,50 @@ const Home = () => {
 
     return (
         <Grid>
-            <GridItem>
+            <MotionGridItem
+                initial={{ opacity: 0, x: -window.innerWidth }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1.25 }}
+            >
                 <HomeCard />
-            </GridItem>
-            <GridItem padding="4%">
+            </MotionGridItem>
+            <MotionGridItem
+                padding="4%"
+                initial={{ opacity: 0, x: window.innerWidth }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1.25 }}
+            >
                 <Categories categories={offersDetails} />
-            </GridItem>
-            <GridItem padding="4%" backgroundColor="#F3F4F6">
+            </MotionGridItem>
+            <MotionGridItem
+                padding="4%"
+                backgroundColor="#F3F4F6"
+                initial={{ opacity: 0, x: -window.innerWidth }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1.25 }}
+            >
                 <Categories categories={categoriesDetails} />
-            </GridItem>
-            <GridItem padding="5%">
+            </MotionGridItem>
+            <MotionGridItem
+                padding="5%"
+                initial={{ opacity: 0, x: window.innerWidth }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1.25 }}
+            >
                 <FrontCards
                     title="NEW ARRIVALS"
                     description="Lets explore what is the new-in in our store."
                     start={24}
                     end={30}
                 />
-            </GridItem>
-            <GridItem padding="5%" backgroundColor="#F3F4F6">
+            </MotionGridItem>
+            <MotionGridItem
+                padding="5%"
+                backgroundColor="#F3F4F6"
+                initial={{ opacity: 0, x: -window.innerWidth }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1.25 }}
+            >
                 <FrontCards
                     title="TRENDING RIGHT NOW"
                     description="Want to find out whats the trends among our customers? Lets
@@ -39,10 +68,15 @@ const Home = () => {
                     start={5}
                     end={15}
                 />
-            </GridItem>
-            <GridItem paddingY="6%">
+            </MotionGridItem>
+            <MotionGridItem
+                paddingY="6%"
+                initial={{ opacity: 0, x: window.innerWidth }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1.25 }}
+            >
                 <Brands />
-            </GridItem>
+            </MotionGridItem>
         </Grid>
     );
 };

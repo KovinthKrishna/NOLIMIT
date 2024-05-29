@@ -14,7 +14,7 @@ const Category = () => {
         <Grid>
             <GridItem backgroundColor="#F4F3F1" paddingY={{ base: 30, lg: 0 }}>
                 {category ? (
-                    <CategoryBanner category={category} />
+                    <CategoryBanner category={category} key={category} />
                 ) : (
                     <CollectionBanner />
                 )}

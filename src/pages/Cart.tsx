@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import CartBalance from "../components/CartBalance";
 import { fetchItem } from "../hooks/useItem";
 import CartItem from "../components/CartItem";
+import { motion } from "framer-motion";
+
+const MotionGrid = motion(SimpleGrid);
 
 const Cart = () => {
     const [items, setItems] = useState([]);
@@ -51,11 +54,14 @@ const Cart = () => {
                 Cart
             </Text>
             <hr />
-            <SimpleGrid
+            <MotionGrid
                 columns={1}
                 paddingY={10}
                 paddingX={{ base: 2, md: 4, lg: 60 }}
                 spacing={{ base: 2, md: 4 }}
+                initial={{ opacity: 0, x: -window.innerWidth }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1.5 }}
             >
                 {items.map(
                     (item: { _id?: string; id: number; count: number }) => {
@@ -78,7 +84,7 @@ const Cart = () => {
                         );
                     }
                 )}
-            </SimpleGrid>
+            </MotionGrid>
             <hr />
             <CartBalance total={total} />
         </>

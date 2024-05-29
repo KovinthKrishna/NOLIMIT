@@ -17,6 +17,9 @@ import { useContext, useEffect, useState } from "react";
 import ProductCards from "../components/ProductCards";
 import { setItem } from "../hooks/useItem";
 import { AppContext } from "../App";
+import { motion } from "framer-motion";
+
+const MotionImage = motion(Image);
 
 const Products = () => {
     const { id } = useParams();
@@ -57,13 +60,23 @@ const Products = () => {
                         Home | {product.category}
                     </Text>
                 </GridItem>
-                <GridItem paddingX={{ base: 0, md: 10, lg: 20 }} paddingY={10}>
+                <GridItem
+                    paddingX={{ base: 0, md: 10, lg: 20 }}
+                    paddingY={10}
+                    key={id}
+                >
                     <SimpleGrid
                         columns={{ base: 1, lg: 2 }}
                         justifyItems="center"
                         spacingY={8}
                     >
-                        <Image src={product.image} width="100%" />
+                        <MotionImage
+                            initial={{ opacity: 0, x: -window.innerWidth }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1 }}
+                            src={product.image}
+                            width="100%"
+                        />
                         <VStack
                             width="100%"
                             justifyContent="center"
