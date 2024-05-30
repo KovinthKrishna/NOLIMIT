@@ -2,15 +2,14 @@ import { Button, HStack, Image, Input, Text, VStack } from "@chakra-ui/react";
 import logo from "../assets/logo.svg";
 import { useState } from "react";
 import axios from "axios";
-
-const URL = import.meta.env.VITE_URL ?? "http://localhost:3000";
+import { serverUrl } from "../hooks/useItem";
 
 const About = () => {
     const [email, setEmail] = useState("");
 
     const submit = () => {
         axios
-            .post(`${URL}/add/users`, {
+            .post(`${serverUrl}/add/users`, {
                 email,
             })
             .then(() => {

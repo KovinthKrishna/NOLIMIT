@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const URL = import.meta.env.VITE_URL ?? "http://localhost:3000";
+export const serverUrl = import.meta.env.VITE_URL ?? "http://localhost:3000";
 
 export const fetchItem = async () => {
     try {
-        return (await axios.get(`${URL}/fetch/items`)).data;
+        return (await axios.get(`${serverUrl}/fetch/items`)).data;
     } catch (err) {
         console.error(err);
     }
@@ -12,7 +12,7 @@ export const fetchItem = async () => {
 
 export const newItem = async (id: number, count: number) => {
     try {
-        await axios.post(`${URL}/add/items`, {
+        await axios.post(`${serverUrl}/add/items`, {
             id: id,
             count: count,
         });
@@ -27,7 +27,7 @@ export const updateItem = async (
     change: number
 ) => {
     try {
-        await axios.put(`${URL}/update/items/` + item._id, {
+        await axios.put(`${serverUrl}/update/items/` + item._id, {
             count: item.count + change,
         });
     } catch (err) {
@@ -37,7 +37,7 @@ export const updateItem = async (
 
 export const deleteItem = async (item: { _id: string }) => {
     try {
-        await axios.delete(`${URL}/delete/items/` + item._id);
+        await axios.delete(`${serverUrl}/delete/items/` + item._id);
         return "Item deleted successfully.";
     } catch (err) {
         console.error(err);
