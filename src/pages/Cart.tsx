@@ -64,7 +64,7 @@ const Cart = () => {
                 transition={{ duration: 1.5 }}
             >
                 {items.map(
-                    (item: { _id?: string; id: number; count: number }) => {
+                    (item: { _id: string; id: number; count: number }) => {
                         const collectionDetails = collectionsDetails.find(
                             (collection) => {
                                 if (item.id === collection.id) {
