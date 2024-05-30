@@ -22,9 +22,9 @@ const Cards = ({ collectionDetails }: Props) => {
     const handleShowAlert = useContext(AppContext);
 
     const [button, setButton] = useState(false);
-    const buyItem = async (id: number, change: number) => {
+    const buyItem = async (id: number, count: number) => {
         setButton(true);
-        const result = await setItem(id, change);
+        const result = await setItem(id, count);
         handleShowAlert(result ?? "");
         setTimeout(() => {
             setButton(false);

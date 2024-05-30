@@ -39,8 +39,8 @@ const Products = () => {
         setBuyCount(1);
         setAdded(false);
     }, [product, navigate]);
-    const buyItem = async (id: number, change: number) => {
-        const result = await setItem(id, change);
+    const buyItem = async (id: number, count: number) => {
+        const result = await setItem(id, count);
         handleShowAlert(result ?? "");
         setBuyCount(1);
         setAdded(true);

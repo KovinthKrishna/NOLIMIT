@@ -24,7 +24,7 @@ interface Collection {
 }
 
 interface Item {
-    _id?: string;
+    _id: string;
     id: number;
     count: number;
 }

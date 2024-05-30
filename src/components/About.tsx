@@ -8,7 +8,7 @@ const About = () => {
 
     const submit = () => {
         axios
-            .post("http://localhost:3000/api/users", { email })
+            .post("nolimit-kovinth-server.vercel.app/add/users", { email })
             .then(() => {
                 setEmail("");
             })
