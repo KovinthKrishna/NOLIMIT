@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "https://nolimit-kovinth-server.vercel.app";
+const URL = import.meta.env.VITE_URL ?? "http://localhost:3000";
 
 export const fetchItem = async () => {
     try {

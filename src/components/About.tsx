@@ -3,12 +3,14 @@ import logo from "../assets/logo.svg";
 import { useState } from "react";
 import axios from "axios";
 
+const URL = import.meta.env.VITE_URL ?? "http://localhost:3000";
+
 const About = () => {
     const [email, setEmail] = useState("");
 
     const submit = () => {
         axios
-            .post("https://nolimit-kovinth-server.vercel.app/add/users", {
+            .post(`${URL}/add/users`, {
                 email,
             })
             .then(() => {
