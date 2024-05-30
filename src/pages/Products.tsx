@@ -117,17 +117,18 @@ const Products = () => {
                                         }}
                                     />
                                 </ButtonGroup>
-                                <Button
-                                    colorScheme="teal"
-                                    variant="solid"
-                                    width="100%"
-                                    isDisabled={added}
-                                    onClick={() => {
-                                        buyItem(product.id, buyCount);
-                                    }}
-                                >
-                                    {added ? "Already in Cart" : "Add to Cart"}
-                                </Button>
+                                {!added && (
+                                    <Button
+                                        colorScheme="teal"
+                                        variant="solid"
+                                        width="100%"
+                                        onClick={() => {
+                                            buyItem(product.id, buyCount);
+                                        }}
+                                    >
+                                        Add to Cart
+                                    </Button>
+                                )}
                                 <Button
                                     colorScheme="teal"
                                     variant="outline"

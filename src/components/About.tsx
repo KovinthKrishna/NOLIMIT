@@ -1,11 +1,17 @@
 import { Button, HStack, Image, Input, Text, VStack } from "@chakra-ui/react";
 import logo from "../assets/logo.svg";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { AppContext } from "../App";
 import { serverUrl } from "../hooks/useItem";
 
 const About = () => {
+    const handleShowAlert = useContext(AppContext);
     const [email, setEmail] = useState("");
+    const [button, setButton] = useState(false);
+    useEffect(() => {
+        setButton(email.includes("@"));
+    }, [email]);
 
     const submit = () => {
         axios
@@ -14,6 +20,7 @@ const About = () => {
             })
             .then(() => {
                 setEmail("");
+                handleShowAlert("Subscribed");
             })
             .catch((err) => console.error(err));
     };
@@ -36,7 +43,7 @@ const About = () => {
                 <Button
                     colorScheme="teal"
                     variant="solid"
-                    isDisabled={!email.includes("@")}
+                    isDisabled={!button}
                     onClick={submit}
                 >
                     Subscribe
