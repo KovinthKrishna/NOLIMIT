@@ -26,6 +26,7 @@ const Cart = () => {
     };
 
     useEffect(() => {
+        document.title = `NOLIMIT | Cart(${items.length})`;
         let totalPrice = 0;
         items.forEach((item: { id: number; count: number }) => {
             const collectionDetails = collectionsDetails.find(
@@ -39,9 +40,6 @@ const Cart = () => {
                 );
         });
         setTotal(totalPrice);
-    }, [items]);
-    useEffect(() => {
-        document.title = `NOLIMIT | Cart(${items.length})`;
     }, [items]);
 
     return (

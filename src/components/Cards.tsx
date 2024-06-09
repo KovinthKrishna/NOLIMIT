@@ -3,19 +3,12 @@ import { Card, Image, Stack, Text, HStack, IconButton } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { setItem } from "../hooks/useItem";
+import { newItem } from "../hooks/useItem";
 import { AppContext } from "../App";
-
-interface Collections {
-    id: number;
-    image: string;
-    category: string;
-    name: string;
-    price: string;
-}
+import { Collection } from "./collectionsDetails";
 
 interface Props {
-    collectionDetails: Collections;
+    collectionDetails: Collection;
 }
 
 const Cards = ({ collectionDetails }: Props) => {
@@ -24,7 +17,7 @@ const Cards = ({ collectionDetails }: Props) => {
     const [button, setButton] = useState(false);
     const buyItem = async (id: number, count: number) => {
         setButton(true);
-        const result = await setItem(id, count);
+        const result = await newItem(id, count);
         handleShowAlert(result ?? "");
         setTimeout(() => {
             setButton(false);

@@ -13,16 +13,16 @@ const About = () => {
         setButton(email.includes("@"));
     }, [email]);
 
-    const submit = () => {
-        axios
-            .post(`${serverUrl}/add/users`, {
+    const submit = async () => {
+        try {
+            const result = await axios.post(`${serverUrl}/add/users`, {
                 email,
-            })
-            .then(() => {
-                setEmail("");
-                handleShowAlert("Subscribed");
-            })
-            .catch((err) => console.error(err));
+            });
+            handleShowAlert(result.data);
+            setEmail("");
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     return (

@@ -1,10 +1,17 @@
 import axios from "axios";
 
+export interface Item {
+    _id: string;
+    id: number;
+    count: number;
+}
+
 export const serverUrl = import.meta.env.VITE_URL ?? "http://localhost:3000";
 
 export const fetchItem = async () => {
     try {
-        return (await axios.get(`${serverUrl}/fetch/items`)).data;
+        const result = await axios.get(`${serverUrl}/fetch/items`);
+        return result.data;
     } catch (err) {
         console.error(err);
     }
@@ -12,11 +19,11 @@ export const fetchItem = async () => {
 
 export const newItem = async (id: number, count: number) => {
     try {
-        await axios.post(`${serverUrl}/add/items`, {
+        const result = await axios.post(`${serverUrl}/add/items`, {
             id: id,
             count: count,
         });
-        return "Item added successfully.";
+        return result.data;
     } catch (err) {
         console.error(err);
     }
@@ -37,19 +44,11 @@ export const updateItem = async (
 
 export const deleteItem = async (item: { _id: string }) => {
     try {
-        await axios.delete(`${serverUrl}/delete/items/` + item._id);
-        return "Item deleted successfully.";
+        const result = await axios.delete(
+            `${serverUrl}/delete/items/` + item._id
+        );
+        return result.data;
     } catch (err) {
         console.error(err);
-    }
-};
-
-export const setItem = async (id: number, count: number) => {
-    const items = await fetchItem();
-    const duplicate = items.find((item: { id: number }) => item.id === id);
-    if (!duplicate) {
-        return await newItem(id, count);
-    } else {
-        return "Already in cart!";
     }
 };

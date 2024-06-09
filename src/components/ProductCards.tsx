@@ -4,17 +4,10 @@ import "react-multi-carousel/lib/styles.css";
 import "./ProductCards.css";
 import Cards from "./Cards";
 import { useParams } from "react-router-dom";
-
-interface Products {
-    id: number;
-    image: string;
-    category: string;
-    name: string;
-    price: string;
-}
+import { Collection } from "./collectionsDetails";
 
 interface Props {
-    products: Products[];
+    products: Collection[];
 }
 
 const CustomLeftArrow = ({ onClick }: { onClick?: () => void }) => {

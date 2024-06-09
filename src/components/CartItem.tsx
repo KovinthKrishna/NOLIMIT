@@ -11,23 +11,10 @@ import {
 } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { deleteItem, updateItem } from "../hooks/useItem";
+import { deleteItem, Item, updateItem } from "../hooks/useItem";
 import { useContext, useState } from "react";
 import { AppContext } from "../App";
-
-interface Collection {
-    id: number;
-    image: string;
-    category: string;
-    name: string;
-    price: string;
-}
-
-interface Item {
-    _id: string;
-    id: number;
-    count: number;
-}
+import { Collection } from "./collectionsDetails";
 
 interface Props {
     collectionDetails: Collection;

@@ -29,6 +29,14 @@ import item_28 from "../assets/collections/item_28.webp";
 import item_29 from "../assets/collections/item_29.webp";
 import item_30 from "../assets/collections/item_30.webp";
 
+export interface Collection {
+    id: number;
+    image: string;
+    category: string;
+    name: string;
+    price: string;
+}
+
 const collectionsDetails = [
     {
         id: 1,

@@ -15,7 +15,7 @@ import collectionsDetails from "../components/collectionsDetails";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { useContext, useEffect, useState } from "react";
 import ProductCards from "../components/ProductCards";
-import { setItem } from "../hooks/useItem";
+import { newItem } from "../hooks/useItem";
 import { AppContext } from "../App";
 import { motion } from "framer-motion";
 
@@ -40,7 +40,7 @@ const Products = () => {
         setAdded(false);
     }, [product, navigate]);
     const buyItem = async (id: number, count: number) => {
-        const result = await setItem(id, count);
+        const result = await newItem(id, count);
         handleShowAlert(result ?? "");
         setBuyCount(1);
         setAdded(true);

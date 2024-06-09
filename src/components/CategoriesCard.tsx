@@ -1,11 +1,6 @@
 import { Card, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-
-interface Category {
-    link: string;
-    image: string;
-    name: string;
-}
+import { Category } from "./Categories";
 
 interface Props {
     category: Category;
